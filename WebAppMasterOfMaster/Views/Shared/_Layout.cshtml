@@ -1,0 +1,661 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Orkesta Beta Tarde @ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/Images/ImagenIcono.png" />
+
+    <link href="/Contenido/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Contenido/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/Contenido/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="/Contenido/css/sb-admin.css" rel="stylesheet">
+    <link href="/Contenido/css/StyleMenu.css" rel="stylesheet">
+</head>
+<body id="page-top">
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+
+
+        <img id="imagen-logo" src="~/Images/Logotipo Norkut blanco con color.png" alt="Smiley face">
+
+
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+            <i class="fas fa-bars"></i>
+        </button>
+
+
+
+    </nav>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav">
+            <li class="nav-item dropdown" id="miamor">
+                <a class="nav-link dropdown-toggle" href="#MaestrosCabecerasActivos" id="pagesDropdown" role="button" data-toggle="collapse" aria-controls="MaestrosCabecerasActivos" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Maestro</span>
+                </a>
+                <div class="dropdown-menu collapse multi-collapse" id="MaestrosCabecerasActivos" data-parent="#wrapper">
+
+                </div>
+            </li>
+            <li class="nav-item dropdown" id="miamor">
+
+                <a class="nav-link dropdown-toggle" href="#Configuracion" id="pagesDropdown" role="button" data-toggle="collapse" aria-controls="Configuracion" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+                <!-- Mostrar Maestros Avanzados id="Configuracion" -->
+                <div class="dropdown-menu collapse multi-collapse" id="Configuracion" data-parent="#wrapper">
+
+
+
+                </div>
+
+            </li>
+
+        </ul>
+
+        <!-- Contenido de Las Vista Parciales -->
+
+        <div id="content-wrapper">
+            <div class="container-fluid">
+                @RenderBody()
+
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- Fin del Contenido de Las Vista Parciales -->
+        <footer class="sticky-footer">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span class="PieDePagina" >2018 © Orkesta Beta Desarrollado por <img src="~/Images/LogotipoNorkutcolor.png" height="50" width="100"> </span>
+                </div>
+            </div>
+        </footer>
+        <!-- Sticky Footer -->
+        <!-- /.content-wrapper  // Contenido de la Plantilla-->
+    </div>
+    <!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+
+
+        <a class="btn btn-success btn-sm w-50 h-25 " id="botonActivo" style="">Activo</a>
+
+    </div>
+    <!-- Scripts-->
+    @* @Scripts.Render("~/bundle/js") *@
+    <script src="/Contenido/vendor/jquery/jquery.min.js"></script>
+    <script src="/Contenido/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/Contenido/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/Contenido/vendor/chart.js/Chart.min.js"></script>
+    <script src="/Contenido/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="/Contenido/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="/Contenido/js/sb-admin.min.js"></script>
+    <script src="/Contenido/js/demo/chart-area-demo.js"></script>
+
+
+    @RenderSection("script", required: false)
+
+
+    <script type="text/javascript">
+        var IdMC = -1;
+        var MaestroAvanzado;
+
+        $("#BtnConfig").click(function () {
+            //boton de +
+            $('#BtnActivarPanelBusqueda').show();
+            $('#BtnActivarPanelBusquedaDetalles').hide();
+
+        });
+         
+
+        function valicacion_alfanumerica(pContenedor, pTexto, pValor) {
+            if (!(pValor.match(/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ][0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/))) {
+                /*$("#Modal").modal('show');
+                $("#tituloNotificacion").html("Por favor tome en cuenta las siguientes reglas para ingresar los datos. ");
+                $("#mensaje").html("*Solo se admiten caracteres de [A-Z] o [0-9]. <br> *La cadena debe tener una longitud mínima de cuatro(4) caracteres. <br> *La cadena debe tener una longitud máxima de cincuenta(50) caracteres.<br> *La cadena no puede empezar con un carácter numérico(0-9).<br>*La cadena debe contener al menos un (1) carácter alfabético. ");
+                */
+                pContenedor.addClass("has-danger");
+                pTexto.text("Formato no válido");
+                pTexto.css("display", "block");
+                return false;
+            }
+            if (pValor.length < 4) {
+                pContenedor.addClass("has-danger");
+                pTexto.text("Longitud menor a 3");
+                pTexto.css("display", "block");
+                return false;
+            }
+            if (pValor.length > 50) {
+                pContenedor.addClass("has-danger");
+                pTexto.text("Longitud mayor a 50");
+                pTexto.css("display", "block");
+                return false;
+            }
+            pContenedor.removeClass("has-danger");
+            pTexto.text("");
+            pTexto.css("display", "none");
+            return true;
+        }
+        var IdMaestroCabecera;
+        //Modificar Maestro Detalle
+        function ModificarMDetalle() {
+            $("#btnModificar")
+                .off("click")
+                .click(function () {
+                    if (!valicacion_alfanumerica($("#AlerModi"), $("#AlerModi .invalid-feedback"), $("#Descripcion2").val())) {
+                        return 0;
+                    }
+                    var descripcion = $("#Descripcion2").val();
+                    var estado = $("#Estado2").prop("checked");
+                    var idMaestroCabecera = $("#IdMaestroCabecera").val();
+                    var descripcionAntigua = $("#DesAntigua").val();
+                    $.ajax({
+                        type: "POST",
+                        data: {
+                            pIdMaestroCabecera: idMaestroCabecera,
+                            Descripcion: descripcion,
+                            Estado: estado,
+                            DescripcionAntigua: descripcionAntigua
+                        },
+                        url: "@Url.Action("ModificarMaestrosDetalles", "MD")",
+                        success: function (pRespuesta) {
+                            $("#Descripcion").val("");
+                            $("#Estado").prop("checked", true);
+                            $("#Modal").modal('show');
+                            $("#tituloNotificacion").html(pRespuesta.titulo);
+                            $("#mensaje").html(pRespuesta.message);
+                            LlenarTablaDetalle($("#IdMaestroCabecera").val());
+                            //Refresca la tabla
+                            $('#dataTable').DataTable().draw(true);
+                            LLenarMenu();
+                            if (pRespuesta.message == "Modificación completada") {
+                                $('#exampleModal').modal('hide');
+                            }
+                        }
+                    });
+                });
+        }
+
+        //
+        function LlenarTablaDetalle(IdMaestroCabecera) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("MaestrosDetalles","MD")?pIdMaestroCabecera=" + IdMaestroCabecera,
+                success: function (pRespuesta) {
+                    IdMC = IdMaestroCabecera;
+                    //Vacia la tabla
+                    $('#dataTable').DataTable().clear();
+                    $.each(pRespuesta, function (key, item) {
+                        //IndActivo
+                        var indicador = '<div class="d-flex justify-content-center">';
+                        if (item.indActivo) {
+                            indicador = indicador + '<span class="btn btn-success btn-sm" style="width:70%">Activo</span>';
+                        }
+                        else {
+                            indicador = indicador + '<span class="btn btn-warning btn-sm" style="width:70%">Inactivo</span>';
+                        }
+                        indicador = indicador + '</div>';
+
+                        //Fecha Creacion
+                        var fechaString1 = item.fechaCreacion.substr(6);
+                        var fechaActual1 = new Date(parseInt(fechaString1));
+                        var mes1 = fechaActual1.getMonth() + 1;
+                        var dia1 = fechaActual1.getDate();
+                        var anio1 = fechaActual1.getFullYear();
+                        var fechaCreacion = +dia1 + "/" + mes1 + "/" + anio1;
+
+                        //Fecha Ocurrecia
+                        var fechaString = item.fechaOcurrencia.substr(6);
+                        var fechaActual = new Date(parseInt(fechaString));
+                        var mes = fechaActual.getMonth() + 1;
+                        var dia = fechaActual.getDate();
+                        var anio = fechaActual.getFullYear();
+                        var fechaOcurrencia = dia + "/" + mes + "/" + anio;
+                        var td = '<div class="d-flex justify-content-between">' + fechaOcurrencia;
+                        td = td + '<a data-toggle="modal" data-target="#exampleModal" class="btnMod" data-descripcion="' + item.descripcion + '" data-indactivo="' + item.indActivo + '" data-idmaestroc="' + item.idMaestroCabecera + '" style="color:green"><i class="fas fa-edit"></i></a>';
+                        td = td + "</div>";
+
+
+                        $('#dataTable').DataTable().row.add([
+                                item.descripcion,
+                                indicador,
+                                fechaCreacion,
+                                td
+                        ]);
+                    });
+                    //Refresca la tabla
+                    $('#dataTable').DataTable().draw(true);
+                    $("#volver").css("display", "block");
+                }
+            }).done(function myfunction() {
+                //Crear input
+                if ($("#IdMaestroCabecera2").length > 0) {
+                    $("#IdMaestroCabecera2").val(IdMaestroCabecera);
+                } else {
+                    $("#fmofidicar").append("<input id='IdMaestroCabecera2' name='idMaestroCabecera' type='hidden' value='" + IdMaestroCabecera + "'/>");
+                }
+                ModificarMDetalle();
+                //Refresca la tabla
+                $('#dataTable').DataTable().draw(true);
+            });
+        }
+
+        //Inserta Detalles
+        function InsertMDetalle() {
+            var descripcion = $("#Descripcion").val();
+            var estado = $("#Estado").prop("checked");
+            var idMaestroDetalle = $("#IdMaestroCabecera").val();
+            $.ajax({
+                type: "POST",
+                data: {
+                    pIdMaestroCabecera: idMaestroDetalle,
+                    Descripcion: descripcion,
+                    Estado: estado
+                },
+                url: "@Url.Action("IngresarMaestrosDetalles", "MD")",
+                success: function (pRespuesta) {
+                    $("#Descripcion").val("");
+                    $("#Estado").prop("checked", true);
+                    $("#Modal").modal('show');
+                    $("#tituloNotificacion").html(pRespuesta.titulo);
+                    $("#mensaje").html(pRespuesta.message);
+                    LlenarTablaDetalle(idMaestroDetalle);
+                    //Refresca la tabla
+                    $('#dataTable').DataTable().draw(true);
+                }
+            });
+        }
+
+
+        // Llenar Menu de Maestros Avanzados
+        function LLenarMenuAvanzado() {
+            $.getJSON("@Url.Action("MaestrosAvanzados", "MA" )", function (data) {
+                $('#Configuracion').empty();
+                trCM = "<a class='linkMA dropdown-item text-left text-light' style='background-color: #d28f34; ' onfocus='AnimationEvent' href='@Url.Action("CreateMaster", "MA")'> <span id='BtnConfig'> Crear Maestro </span>  </a>";
+                $('#Configuracion').append(trCM);
+                var sea;
+                sea = " <input class='form-control buscar' type='text' id='buscar2' placeholder='Buscar ' aria-label='Buscar ...'>"
+                $('#Configuracion').append(sea);
+                var tr;
+                $.each(data, function (d, i) {
+
+                    tr = "<a class='linkMA dropdown-item text-left text-light' data-id='#" + i.NombreTabla + "' onfocus='AnimationEvent'   data-url='@Url.Action("BuscarMaestroAvanzado", "MA")?NombreTabla=" + i.NombreTabla + "' data-NombreTabla='" + i.NombreTabla + "'>" + i.NombreTabla + "</a>";
+                    $('#Configuracion').append(tr);
+
+                });
+                $("#buscar2").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $("#Configuracion a").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            }).done(function () {
+                $(".linkMA").click(function () {
+                    if ($(location).attr('pathname') != '@Url.Action("CreateMaster","MA")') {
+                        $(location).attr('href', '@Url.Action("CreateMaster", "MA")' + '#' + $(this).text());
+                    }
+                    MaestroAvanzado = $(this);
+                    $(".linkMA").removeClass("active");
+                    $(this).addClass("active");
+                    
+                    $("#ModalConfirmacionLimpiar p").text("¿Está seguro que desea deshacer los campos?");
+                    $("#btnLimpiar").text("Deshacer");
+
+                    $("#btnConfiLimpiar")
+                    .off("click")
+                    .click(function () {
+                        LimpiarAvanzado();
+                        MaestroAvanzado.click();
+                    });
+
+                    NombreTabla = $(this).attr("data-NombreTabla");
+                
+                    $("#buscar2").val("");
+
+                    var value = $(this).val().toLowerCase();
+                    $("#Configuracion a").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+
+                    LlenarMaestroAvanzado(NombreTabla);
+                })
+                    .promise()
+                    .done(function () {
+                        // Fuerza el click si hay un #<id> en la url
+                        if ($(location).attr('pathname') == '@Url.Action("CreateMaster","MA")' &&  $(location).attr('hash') != "") {
+                            var id = $(location).attr('hash');
+                            var buttom = $(".linkMA[data-id='" + id + "']");
+                            $(buttom.click());
+                        }
+                    });
+            });
+
+        }
+
+        function ObtenerClavePrimaria(NombreTabla) {
+            var clave;
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("BuscarClavePrimaria", "MA")?NombreTabla=" + NombreTabla,
+                success: function (pRespuesta) {
+                    clave = pRespuesta;
+                }
+
+            })
+
+            return clave;
+        }
+
+
+
+        //LLenar el Contenido del Maestro Avanzado Seleccionado
+        function LlenarMaestroAvanzado(NombreTabla) {
+
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("BuscarMaestroAvanzado", "MA")?NombreTabla=" + NombreTabla,
+                success: function (pRespuesta) {
+                    // Nombre de la Tabla
+                    var trc = "";
+                    LimpiarAvanzado();
+                    $("#NombreMA").val(NombreTabla);
+                    $("#tituloMA").text("Modificación de maestro: " + NombreTabla);
+                    $("#NombreMA").prop("disabled", true);
+
+                    $("#btnLimpiar").prop("disabled", true);
+                    $("#btnConfirmation").prop("disabled", true);
+
+                    var TiposDeDatos = ['varchar', 'binary', 'char', 'datetime2', 'datetimeoffset', 'decimal', 'nchar','numeric','nvarchar','time','varbinary'];
+
+                    $.each(pRespuesta.datos, function (key, item) {
+                        var P_NULL = null;
+                        var P_K = false;
+                        var activopk = "";
+                        if (item.PK) {
+                            activopk = "checked";
+                            P_K = true;
+                        }
+                        if (item.PN) {
+                            activo = "checked";
+                            P_NULL = true;
+                        } else {
+                            activo = "";
+                            P_NULL = false;
+                        }
+                        trc = '<tr class="selected"  id="fila' + cont + '">';
+                        trc += '<td>';
+                        trc += '<div class="row form-group" id="Filar-crear">';
+                        trc += '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">';
+                        trc += '<label>Nombre de la columna</label>';
+                        trc += '<input class="form-control" style="max-width:100%; border:1px medium blue; border-color:darkgrey;" type="text" id="NCMA' + cont + '" value="' + item.NomColumn + '" disabled>';
+                        trc += '</div>';
+                        trc += '<div class="col-lg-2 col-sm-2 col-xm-2 col-md-2  col-xs-12">';
+                        trc += '<div class="form-group">';
+                        trc += '<label>Tipo de dato</label>';
+                        trc += '<input  id="TDMA' + cont + '" class="form-control" type="text"  value="' + item.TypeData + '" disabled>';
+                        trc += '</div>';
+                        trc += '</div>';
+                        trc += '<div class="col-lg-1 col-sm-1 col-xm-1 col-md-1  col-xs-12" id="Tamano">';
+                        trc += '<div class="form-group">';
+
+                        if (item.TypeData == "varchar" && item.Longitud != "-1") {
+                            trc += '<label>Tamaño</label>';
+                            trc += '<input class="form-control" style="max-width:120%;" id="Tam' + cont + '" value="' + item.Longitud + '"  name="Tam" type="text" disabled/>';
+                        }
+
+                        trc += '</div>';
+                        trc += '</div>';
+                        trc += '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">';
+                        trc += '<div class="form-group">';
+                        trc += '<label style="text-align: center;">Permite nulo</label>';
+                        trc += '<div class=" custom-control custom-checkbox" style="padding-left:3rem;">';
+                        trc += '<input id="PNMA' + cont + '" type="checkbox" value="' + P_NULL + '" " ' + activo + ' " disabled>';
+                        trc += '</div>';
+                        trc += '</div>';
+                        trc += '</div>';
+                        trc += '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">';
+                        trc += '<label for="Estado" style="text-align: center;">Clave primaria</label>';
+                        trc += '<div class=" custom-control custom-checkbox" style="padding-left:3rem;">';
+                        trc += '<input id="PKMA' + cont + '" type="checkbox" value="' + P_K + '" " ' + activopk + ' " name="PK"  disabled>';                        
+                        trc += '</div>';
+                        trc += '</div>';
+                        trc += '<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">';
+                        trc += '<button type="button" class="fa fa-minus btn btn-warning" onclick="eliminar(' + cont + ');"></button>';
+                        trc += '<button type="button" class="fas fa-edit btn btn-success" style="margin-top:10px" onclick="cargarFila(' + cont + ');"></button>';
+                        trc += '</div>';
+                        trc += "</div>";
+                        trc += '</td>';
+                        trc += '</tr>';
+                        //trc = '<tr class="selected"  id="fila' + cont + '"><td> <label>Nombre de la columna *</label> <br /> <input class="form-control" type="text" id="NCMA' + cont + '" value="' + item.Atributo + '"> </td><td><label>Tipo de dato *</label> <br /><input  id="TDMA' + cont + '" class="form-control" type="text"  value="' + item.TipoDeDato + '" disabled ></td> <td><label>Permite nulo</label> <br /><div class="custom-control custom-checkbox" style="padding-left:3rem;"> <input id="PNMA' + cont + '" type="checkbox" value="' + P_NULL + '" " ' + activo + ' " > </div> </td><td><label>Clave primaria</label> <br /><div class=" custom-control custom-checkbox" style="padding-left:3rem;"><input id="PKMA' + cont + '" type="checkbox" value="' + P_K + '" " ' + activopk + ' " name="PK"  ></div></td><td><br /><button type="button" class="fa fa-minus btn btn-warning" onclick="eliminar(' + cont + ');"></button></td> </div>  </tr>';
+                        //  trc = '<tr class="selected"  id="fila' + cont + '"><td> <label>Nombre de la columna*</label> <br /><input class="form-control" type="text" id="NCMA' + cont + '" value="' + item.Atributo + '" disabled ></td><td><label>Tipo de dato*</label> <br /><input  id="TDMA' + cont + '" class="form-control" type="text"  value="' + item.Atributo + '" disabled ></td><td><label>Permite nulo</label> <br /><div class="custom-control custom-checkbox" style="padding-left:3rem;"> <input id="PNMA' + cont + '" type="checkbox"  value="' + P_NULL + '" " ' + activo + ' " disabled > </div> </td>   <td><label>Clave primaria</label> <br /><div class=" custom-control custom-checkbox" style="padding-left:3rem;"><input id="PKMA' + cont + '" type="checkbox" name="PK" value="' + P_K + '"  " ' + activopk + ' " disabled  ></div></td><td><br /><button type="button" class="fa fa-minus btn btn-warning" onclick="eliminar(' + cont + ');"></button></td> </div>  </tr>';
+                        $('#contenido').append(trc);
+                        cont++;
+                    });
+                    $("#ContadorMA").text(cont);
+                }
+            }).done(function () {
+                //Al terminar la funcion
+                Accion = "modificar"
+            });
+        }
+
+        //LLenar Menu
+        function LLenarMenu() {
+            $.getJSON("@Url.Action("MaestrosCabeceras", "Menu" )", function (data) {
+                $('#MaestrosCabecerasActivos').empty();
+                var tr;
+                var trc;
+                var sea;
+
+                trc = "<a class='linkM dropdown-item text-left text-light' style='background-color: #d28f34; ' href='@Url.Action("Config","ConfiguracionM")'><span id='palabras'>Configuración</span></a>";
+                $('#MaestrosCabecerasActivos').append(trc);
+                sea = " <input class='form-control buscar' type='text' id='buscar' placeholder='Buscar ' aria-label='Buscar ...'>"
+                $('#MaestrosCabecerasActivos').append(sea);
+                $.each(data, function (d, i) {
+                    tr = "<a class='linkM dropdown-item text-left text-light' id='" + i.descripcion + "' onfocus='AnimationEvent' data-url='@Url.Action("MaestrosDetalles","MD")?pIdMaestroCabecera=" + i.idMaestroCabecera + "' data-idMaestroCabecera='" + i.idMaestroCabecera + "'>" + i.descripcion + "</a>";
+                    $('#MaestrosCabecerasActivos').append(tr);
+
+                });
+                $("#buscar").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $("#MaestrosCabecerasActivos a").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            }).done(function () {
+                $(".linkM")
+                .off("click")
+                .click(function () {
+                    if ($(location).attr('pathname') != '@Url.Action("Config","ConfiguracionM")') {
+                        $(location).attr('href', '@Url.Action("Config","ConfiguracionM")' + '#' + $(this).text());
+                    }
+                    @*href = '@Url.Action("Config","ConfiguracionM")'*@
+                    // al hacer click en un maestro del menu
+                    $("#panelBuscar").hide();
+                    $(".linkM").removeClass("active");
+                    $(this).addClass("active");
+                    $("#titulo").text("Configuración de Maestro " + $(this).text());
+                    $("#titulo-insert").html("Datos de Detalle");
+
+                    $("#titulo-tabla").html("Listado de Maestros Detalle");
+                    $('#panelBuscarDiaDetalles').hide();
+                    $('#panelBuscarDetalles').show();
+                    $('#panelIngresar').hide();
+                    $('#panelBuscarDia').hide();
+                    //boton de +
+                    $('#BtnActivarPanelBusqueda').hide();
+                    $('#BtnActivarPanelBusquedaDetalles').show();
+
+                    if ($("#IdMaestroCabecera").length > 0) {
+                        $("#IdMaestroCabecera").val($(this).attr("data-idMaestroCabecera"));
+                    } else {
+                        $("#finsert").append("<input id='IdMaestroCabecera' name='idMaestroCabecera' type='hidden' value='" + $(this).attr("data-idMaestroCabecera") + "'/>");
+                    }
+                    IdMaestroCabecera = $(this).attr("data-idMaestroCabecera");
+                    $("#btnGuardar")
+                        .off("click")
+                        .click(function () {
+                            if (!valicacion_alfanumerica($("#finsert"), $("#finsert .invalid-feedback"), $("#Descripcion").val())) {
+                                return 0;
+                            }
+                            InsertMDetalle();
+                        });
+
+                    $("#buscar").val("");
+
+                    var value = $(this).val().toLowerCase();
+                    $("#MaestrosCabecerasActivos a").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+
+                    LlenarTablaDetalle(IdMaestroCabecera);
+                    //Refresca la tabla
+                    $('#dataTable tbody').off('click', 'td:first-child');
+                    $('#dataTable').DataTable().draw(true);
+                }).promise()
+                .done(function () {
+                    // Fuerza el click si hay un #<id> en la url
+                    if ($(location).attr('pathname') != '@Url.Action("Config","ConfiguracionM")' && $(location).attr('hash') != "") {
+                        var id = $(location).attr('hash');
+                        if ($.fn.DataTable.isDataTable('#dataTable')) {
+                            $(id).click();
+
+                        }
+                    }
+
+                  
+
+
+                });
+            });
+        }
+
+        $(document).ready(function () {
+ 
+            $("#wrapper li").click(function () {
+                $("#wrapper li").removeClass("active");
+                $(this).addClass("active");
+            });
+            LLenarMenu();
+            LLenarMenuAvanzado();
+
+            //MaestrosDetallesBusqueda
+            $("#BtnBuscarDetalles").click(function () {
+                var bdescripcion = $("#FiltroDescripciond").val();
+                var bestado = $("#FiltroEstatusd option:selected").val();
+                var bfechainicial;
+                var bfechafinal;
+                bfechainicial = $("#FiltroFechaIniciald").val() == "" ? "0001-01-01" : $("#FiltroFechaIniciald").val().toString();
+                bfechafinal = $("#FiltroFechaFinald").val() == "" ? "0001-01-01" : $("#FiltroFechaFinald").val().toString();
+                var idMaestroDetalle = $("#IdMaestroCabecera").val();
+                var d = new Date();
+
+                if (bfechainicial != "0001-01-01" && bfechafinal == "0001-01-01") {
+                    $("#tituloNotificacion").html("Alerta");
+                    $("#mensaje").html("Debe ingresar fecha final");
+                    $("#Modal").modal('show');
+                    return 0;
+                }
+
+                if (bfechainicial == "0001-01-01" && bfechafinal != "0001-01-01") {
+                    $("#tituloNotificacion").html("Alerta");
+                    $("#mensaje").html("Debe ingresar fecha inicial");
+                    $("#Modal").modal('show');
+                    return 0;
+                }
+
+                if ((bfechafinal >= bfechainicial) && (new Date(bfechainicial) <= d.getTime())) {
+                    $.ajax({
+                        type: "POST",
+                        data: {
+                            // Id Cabecera
+                            pIdMCabecera: idMaestroDetalle,
+                            pDescripcion: bdescripcion,
+                            pIndActivo: bestado,
+                            pFechaInicial: bfechainicial,
+                            pFechaFinal: bfechafinal
+
+                        },
+                        url: "@Url.Action("MaestrosDetallesBusqueda", "MD")",
+                        success: function (data) {
+                            $('#dataTable').DataTable().clear();
+                            $.each(data, function (key, item) {
+                                //IndActivo
+                                var indicador = '<div class="d-flex justify-content-center">';
+                                if (item.indActivo) {
+                                    indicador = indicador + '<span class="btn btn-success btn-sm" style="width:70%">Activo</span>';
+                                }
+                                else {
+                                    indicador = indicador + '<span class="btn btn-warning btn-sm" style="width:70%">Inactivo</span>';
+                                }
+                                indicador = indicador + '</div>';
+
+                                //Fecha Creacion
+                                var fechaString1 = item.fechaCreacion.substr(6);
+                                var fechaActual1 = new Date(parseInt(fechaString1));
+                                var mes1 = fechaActual1.getMonth() + 1;
+                                var dia1 = fechaActual1.getDate();
+                                var anio1 = fechaActual1.getFullYear();
+                                var fechaCreacion = +dia1 + "/" + mes1 + "/" + anio1;
+
+                                //Fecha Ocurrecia
+                                var fechaString = item.fechaOcurrencia.substr(6);
+                                var fechaActual = new Date(parseInt(fechaString));
+                                var mes = fechaActual.getMonth() + 1;
+                                var dia = fechaActual.getDate();
+                                var anio = fechaActual.getFullYear();
+                                var fechaOcurrencia = dia + "/" + mes + "/" + anio;
+                                var td = '<div class="d-flex justify-content-between">' + fechaOcurrencia;
+                                td = td + '<a data-toggle="modal" data-target="#exampleModal" class="btnMod" data-descripcion="' + item.descripcion + '" data-indactivo="' + item.indActivo + '" data-idmaestroc="' + item.idMaestroCabecera + '" style="color:green"><i class="fas fa-edit"></i></a>';
+                                td = td + "</div>";
+                                $('#dataTable').DataTable().row.add([
+                                        item.descripcion,
+                                        indicador,
+                                        fechaCreacion,
+                                        td
+                                ]).draw(false);
+                            });
+                            $('#dataTable').DataTable().draw(true);
+                        }
+                    });
+                } else {
+                    $("#tituloNotificacion").html("Alerta");
+                    $("#mensaje").html("Verifique el rango de fechas ingresado");
+                    $("#Modal").modal('show');
+                }
+            });
+        });
+
+
+
+
+    </script>
+</body>
+</html>

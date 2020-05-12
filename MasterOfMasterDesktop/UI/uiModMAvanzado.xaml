@@ -1,0 +1,271 @@
+﻿<Page x:Class="MasterOfMasterDesktop.UI.uiModMAvanzado"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      FontSize="15"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="975"
+      Title="uiCrearMaestroAvanzado">
+
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="25"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid  Grid.Row="0" Background="#FF212529" Grid.ColumnSpan="3" Margin="0,0,0.2,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnCerrarConfiguracion" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" VerticalAlignment="Center" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnClose_Click">
+                    <!--Click="btnClose_Click"-->
+                    <materialDesign:PackIcon Kind="Close"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <materialDesign:Card Height="25">
+                    <StackPanel Orientation="Horizontal" Background="#E9ECEF">
+                        <TextBlock Name="txtbMaestro" Text="Modificación de maestro: " Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </materialDesign:Card>
+            </Grid>
+            <Border Grid.Row="2">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" Background="#F7F7F7" Margin="1,-7,-1,0">
+                            <TextBlock  Text="Datos principales" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                    <!--Grid para el control donde se ingresara la descripcion-->
+
+                    <Grid Grid.Row="1" Margin="10,0,10,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Label Content="Nombre de la Tabla" Margin="0,-5,0,0" />
+                                <Label x:Name="lbNomTa" Content="*" Foreground="Red" HorizontalAlignment="Left"   VerticalAlignment="Top" Width="21" Margin="140,-4,0,0" />
+                                <Button Name="btnInfo" Width="25" Height="25" Margin="860,0,0,0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF19817B" Click="btnInfo_Click">
+                                    <materialDesign:PackIcon Kind="Information" Width="25" Height="25"/>
+                                </Button>
+                            </Grid>
+                            <Grid Grid.Row="1" >
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" CornerRadius="3"  BorderBrush="LightBlue" Width="Auto">
+                                    <TextBox Name="txtbNombreTabla" Foreground="Black"  PreviewKeyDown="txtCNombre_PreviewKeyDown" MaxLength="25" Width="Auto"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                        <!--Grid donde estan ubicadas-->
+
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="27"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <!--textblock campo-->
+                            <Grid Grid.Column="0" Grid.Row="0" >
+                                <Label x:Name="label3" Content="*" Foreground="Red" HorizontalAlignment="Left"   VerticalAlignment="Top" Width="21" Margin="150,0,0,0" />
+                                <Label Content="Nombre de la columna" FontSize="14" HorizontalContentAlignment="Left" Margin="5,0,0,0"/>
+                            </Grid>
+                            <Grid Grid.Column="2" Grid.Row="0">
+                                <Label x:Name="label4" Content="*" Foreground="Red" HorizontalAlignment="Left"   VerticalAlignment="Top" Width="25" Margin="84,0,0,0" />
+                                <Label Content="Tipo de dato" FontSize="14" HorizontalContentAlignment="Left" />
+                            </Grid>
+                            <Grid Grid.Column="3" Grid.Row="0">
+                                <Label x:Name="lbTa" Content="*" Foreground="Red" HorizontalAlignment="Left"   VerticalAlignment="Top" Width="25" Margin="50,0,0,0" Visibility="Collapsed" />
+                                <Label Name="lbTamanioR1" Content="Tamaño" FontSize="14" HorizontalContentAlignment="Left"  Visibility="Collapsed"/>
+                                <Label x:Name="lbtda" Content="*" Foreground="Red"    VerticalAlignment="Top" Width="25" Margin="50,0,0,0" Visibility="Collapsed" />
+                            </Grid>
+                            <Grid Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2">
+                                <Label Content="Permite nulo" FontSize="14" HorizontalContentAlignment="Center"/>
+                            </Grid>
+                            <Grid Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2">
+                                <Label Content="Clave primaria" FontSize="14" HorizontalContentAlignment="Center"/>
+                            </Grid>
+                            <!--Controles campo-->
+                            <Grid Grid.Column="0" Grid.Row="1" >
+                                <TextBox x:Name="txtCNombre"  Foreground="Black" MaxLength="25" PreviewKeyDown="txtCNombre_PreviewKeyDown" PreviewTextInput="txtCNombre_PreviewTextInput" IsEnabled="True"/>
+                            </Grid>
+                            <Grid Grid.Column="2" Grid.Row="1">
+                                <ComboBox Name="cbTD" Margin="1,6,1,1" Foreground="Black" SelectionChanged="cmbMostrarOcultarTamanio_Selected" >
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="varchar" />
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="varchar(MAX)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="int" />
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="bigint" />
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="datetime" />
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="float"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="decimal"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="bit" />
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="binary(50)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="char(10)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="date"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="datetime2(7)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="datetimeoffset(7)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="decimal(18, 0)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="hierarchyid"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="nchar(10)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="numeric(18, 0)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="nvarchar(50)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="nvarchar(MAX)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="smalldatetime"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="smallint"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="sql_variant"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="time(7)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="tinyint"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="uniqueidentifier"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="varbinary(50)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="varbinary(MAX)"/>
+                                    <ComboBoxItem HorizontalAlignment="Center" Content="sql_variant"/>
+                                </ComboBox>
+                            </Grid>
+                            <Grid Grid.Column="3" Grid.Row="1">
+                                <TextBox Name="txtTamanioR1" MaxLength='4'  Text="50" HorizontalAlignment="Center" Width="50" Visibility="Collapsed" PreviewTextInput="txtTamanioR1_PreviewTextInput"/>
+                            </Grid>
+                            <Grid Grid.Column="4" Grid.Row="1">
+                                <CheckBox x:Name="chkPN" HorizontalAlignment="Center"></CheckBox>
+                            </Grid>
+                            <Grid Grid.Column="6" Grid.Row="1">
+                                <CheckBox x:Name="chkPK" HorizontalAlignment="Center"></CheckBox>
+                            </Grid>
+
+                            <Grid Grid.Column="8" Grid.Row="1" >
+                                <Button Background="#FF19817B" HorizontalAlignment="Center"  Width="40" Height="32" Click="aggcol_Click" Content="+" Margin="20,0,19,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" />
+                            </Grid>
+
+
+                        </Grid>
+
+                        <Grid Grid.Row="5">
+                            <ListView Name="lvMAvanzadoMod" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="260" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Width="250">
+                                                        <Label Content="Nombre de la columna" />
+                                                        <TextBox Text="{Binding NomColumn}" Width="250" Foreground="Black" Focusable="False" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="180">
+                                            <GridViewColumn.CellTemplate>
+                                                <ItemContainerTemplate>
+                                                    <StackPanel>
+                                                        <Label Content="Tipo de dato"></Label>
+                                                        <TextBox Text="{Binding TypeData}" Width="160" Margin="10,0,10,0" Foreground="Black" Focusable="False"/>
+                                                    </StackPanel>
+                                                </ItemContainerTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="120" >
+                                            <GridViewColumn.CellTemplate>
+                                                <ItemContainerTemplate>
+                                                    <StackPanel>
+                                                        <Label Content="Permitir nulo"/>
+                                                        <CheckBox x:Name="myCheckBox" IsChecked="{Binding  Path=PN}" Focusable="False" IsEnabled="False" HorizontalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </ItemContainerTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="120" >
+                                            <GridViewColumn.CellTemplate>
+                                                <ItemContainerTemplate>
+                                                    <StackPanel>
+                                                        <Label Content="Clave primaria"/>
+                                                        <CheckBox x:Name="myCheckBox" IsChecked="{Binding Path=PK}" Focusable="False" IsEnabled="False" HorizontalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </ItemContainerTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="" Width="200">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button Name="Quitar" Background="#FFE89036" BorderBrush="#FFE89036" Height="30" Margin="80,16,0,0" FontSize="14" Content="-" Click="quitarColumna_Click"/>
+                                                        <Button Name="btnModCol" Background="{x:Null}" BorderBrush="{x:Null}" Height="30" Margin="15,16,0,0" FontSize="14"  Click="btnModCol_Click">
+                                                            <Image Source="/Imagen/modificar.png"/>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+        
+        <!--botones guardar y cancelar-->
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Button x:Name="btnCancelar" Content="Deshacer"   Background="#FFE89036" BorderBrush="#FFE89036" HorizontalAlignment="Right" Margin="0,0,110,0" Click="btnCancelar_Click" IsEnabled="False"/>
+            <Button x:Name="btnGuardar"  Content="Guardar"  Background="#FF19817B" BorderBrush="#FF19817B" HorizontalAlignment="Right"  Margin="0,0,10,0"  Click="btnGuardar_Click" IsEnabled="False"/>
+            <Label x:Name="label1" Content="*" Foreground="Red" HorizontalAlignment="Left"   VerticalAlignment="Top" Width="18" Margin="134,0,0,0" />
+            <Label x:Name="label" Content="Campos requeridos"  Grid.Column="1" HorizontalAlignment="Left"   VerticalAlignment="Top" />
+        </Grid>
+        
+
+
+
+    </Grid>
+</Page>

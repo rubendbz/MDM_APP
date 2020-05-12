@@ -1,0 +1,226 @@
+﻿
+#imagen-logo{
+    max-width: 14%;
+    min-width: 3.5em;
+}
+
+/*menu maestro verde*/
+#wrapper li.active> a,#Configuracion a.active{
+    background-color: #497e79;
+}
+
+/*menu maestro item verde*/
+#MaestrosCabecerasActivos a.active, #Configuracion a.active{
+    background-color: #497e79;
+}
+
+
+.buscar{
+ border:none;
+  margin:5%; 
+  margin-bottom:0; 
+  width:90%; 
+  padding:10px;
+}
+
+
+
+/*menu maestro item naranja*/
+.linkM:hover,
+.linkM:active,
+.linkMA:hover,
+.linkMA:active
+{
+    background-color: #d28f34;
+    color:white;
+}
+
+a.linkM + a.linkM,
+a.linkMA + a.linkMA{
+    margin-top:0 !important;
+}
+.card a:hover{
+     /*background-color: #bbcd4d #3f3f3e !important;
+     background-color:#3f3f3e ;*/
+     cursor:pointer;
+}
+#wrapper .sidebar a,
+ a.linkM,
+ a.linkMA{
+    margin:5%; 
+    margin-bottom:0; 
+    width:90%; 
+    padding:10px;
+}
+
+#MaestrosCabecerasActivos,#Configuracion{
+    max-height:65vh !important;
+    border-radius:0; 
+    width:90%; 
+    margin:5%; 
+    margin-top:0; 
+    overflow:hidden;
+    background-color: #3f3f3e;
+}
+#MaestrosCabecerasActivos:hover,#Configuracion:hover{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#MaestrosCabecerasActivos a,#Configuracion a{
+    color:white;
+    padding:5px;
+    margin-bottom:1px;
+    margin-top:1px;
+    margin-left:5%;
+    margin-right:5%;
+    width:90%;
+}
+
+.btn-success{
+    width:70%;
+    background:#497e79;
+    border-color:#497e79;
+}
+
+.btn-warning{
+    width:70%;
+    background:#d28f34;
+    border-color:#d28f34;
+    color:white;
+}
+
+.btn-success:disabled,
+.btn-success:disabled:hover{
+    background:#497e79;
+    border-color:#497e79;
+    color:white;
+}
+
+.btn-warning:disabled{
+    background:#d28f34;
+    border-color:#d28f34;
+    color:white;
+}
+
+.btn-success:hover {
+    color:black;
+}
+
+#Maestro span.btn-warning,
+#Maestro span.btn-warning:hover,
+#Maestro span.btn-warning:active{
+    background:#d28f34;
+    border-color:#d28f34;
+    color:white;
+    cursor:default !important;
+}
+
+#Maestro span.btn-success,
+#Maestro span.btn-success:hover,
+#Maestro span.btn-success:active{
+    background:#497e79;
+    border-color:#497e79;
+    color:white;
+    cursor:default !important;
+}
+
+.sidebar span{
+    color:white;
+}
+
+.ng-valid{
+    border: thin solid #090;
+}
+
+.ng-valid{
+    border: thin solid #990000;
+}
+
+input:invalid {
+  border: 1px solid red;
+}
+
+input:valid {
+  border: 1px solid green;
+}
+
+#dataTable tbody td[data-idmaestrocabecera]:first-child:hover{
+    text-decoration: underline;
+    cursor:pointer;
+    color:#497e79;
+}
+.form-control:disabled, 
+.form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 0.7;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    /*background : #f1f1f1;*/
+    background-color : #777;
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 5px;
+    border: 1px black solid;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #38383e;
+}
+
+.fa-sync-alt{
+    animation-name : girar;
+    animation-timing-function : linear;
+    animation-duration : 2s;
+    animation-iteration-count : infinite;
+    
+    -webkit-animation-name : girar;
+    -webkit-animation-timing-function : linear;
+    -webkit-animation-duration : 2s;
+    -webkit-animation-iteration-count : infinite;
+    
+    -moz-animation-name : girar;
+    -moz-animation-timing-function : linear;
+    -moz-animation-duration : 2s;
+    -moz-animation-iteration-count : infinite;
+}
+
+@keyframes girar {
+  from {
+     transform: rotate(0deg)
+  }
+
+  to {
+     transform: rotate(360deg)
+  }
+}
+@-moz-keyframes slidein {
+  from {
+    -moz-transform: rotate(0deg)
+  }
+      
+  to {
+    -moz-transform: rotate(360deg)
+  }
+}
+
+@-webkit-keyframes slidein {
+  from {
+    -webkit-transform: rotate(0deg)
+  }
+  
+  to {   
+    -webkit-transform: rotate(360deg)
+ }
+}

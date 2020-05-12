@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterOfMasterModels", "MasterOfMasterModels\MasterOfMasterModels.csproj", "{C9C9B547-AF53-4687-9078-88C1C8F86223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterOfMasterAD", "MasterOfMasterAD\MasterOfMasterAD.csproj", "{F2CF9E50-3458-46D6-A690-8499282DFC0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterOfMasterSvc", "MasterOfMasterSvc\MasterOfMasterSvc.csproj", "{9A9FF374-05B1-4934-A839-11AF35D199F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterOfMasterDesktop", "MasterOfMasterDesktop\MasterOfMasterDesktop.csproj", "{FAF426CC-3F06-47FF-99EF-066549EC949D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9A9FF374-05B1-4934-A839-11AF35D199F0} = {9A9FF374-05B1-4934-A839-11AF35D199F0}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppMasterOfMaster", "WebAppMasterOfMaster\WebAppMasterOfMaster.csproj", "{1A447DF6-E402-41A0-B0C8-E46F8A695B86}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9A9FF374-05B1-4934-A839-11AF35D199F0} = {9A9FF374-05B1-4934-A839-11AF35D199F0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9C9B547-AF53-4687-9078-88C1C8F86223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C9B547-AF53-4687-9078-88C1C8F86223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C9B547-AF53-4687-9078-88C1C8F86223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C9B547-AF53-4687-9078-88C1C8F86223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2CF9E50-3458-46D6-A690-8499282DFC0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2CF9E50-3458-46D6-A690-8499282DFC0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2CF9E50-3458-46D6-A690-8499282DFC0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2CF9E50-3458-46D6-A690-8499282DFC0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A9FF374-05B1-4934-A839-11AF35D199F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A9FF374-05B1-4934-A839-11AF35D199F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A9FF374-05B1-4934-A839-11AF35D199F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A9FF374-05B1-4934-A839-11AF35D199F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF426CC-3F06-47FF-99EF-066549EC949D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF426CC-3F06-47FF-99EF-066549EC949D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF426CC-3F06-47FF-99EF-066549EC949D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF426CC-3F06-47FF-99EF-066549EC949D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A447DF6-E402-41A0-B0C8-E46F8A695B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A447DF6-E402-41A0-B0C8-E46F8A695B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A447DF6-E402-41A0-B0C8-E46F8A695B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A447DF6-E402-41A0-B0C8-E46F8A695B86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfs.norkut.com.ve:8080/tfs/norkut
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MasterOfMasterModels\\MasterOfMasterModels.csproj
+		SccProjectName1 = MasterOfMasterModels
+		SccLocalPath1 = MasterOfMasterModels
+		SccProjectUniqueName2 = MasterOfMasterAD\\MasterOfMasterAD.csproj
+		SccProjectName2 = MasterOfMasterAD
+		SccLocalPath2 = MasterOfMasterAD
+		SccProjectUniqueName3 = MasterOfMasterSvc\\MasterOfMasterSvc.csproj
+		SccProjectName3 = MasterOfMasterSvc
+		SccLocalPath3 = MasterOfMasterSvc
+		SccProjectUniqueName4 = MasterOfMasterDesktop\\MasterOfMasterDesktop.csproj
+		SccProjectName4 = MasterOfMasterDesktop
+		SccLocalPath4 = MasterOfMasterDesktop
+		SccProjectUniqueName5 = WebAppMasterOfMaster\\WebAppMasterOfMaster.csproj
+		SccProjectName5 = WebAppMasterOfMaster
+		SccLocalPath5 = WebAppMasterOfMaster
+	EndGlobalSection
+EndGlobal

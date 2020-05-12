@@ -1,0 +1,17 @@
+﻿<Page x:Class="MasterOfMasterDesktop.UI.uiIndex"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="975"
+	Title="uiIndex">
+
+    <Grid>
+        <StackPanel>
+            <Image Source="/Imagen/Isotipo Norkut.jpg" Stretch="UniformToFill" Margin="50" Height="520" Width="520"/>
+        </StackPanel>
+    </Grid>
+</Page>
+

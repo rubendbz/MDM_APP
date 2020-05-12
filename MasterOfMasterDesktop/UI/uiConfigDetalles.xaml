@@ -1,0 +1,313 @@
+﻿<Page x:Class="MasterOfMasterDesktop.UI.uiConfigDetalles"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      FontSize="15"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="975"
+	Title="Configuración de Maestros">
+    <Page.Resources>
+        <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <TextBox Text="{Binding Path=Text,
+                                                RelativeSource={RelativeSource TemplatedParent}, 
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                 x:Name="textSource" 
+                                 Background="Transparent" 
+                                 Panel.ZIndex="2" />
+                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
+                                                <Setter Property="Foreground" Value="Gray"/>
+                                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ColumnasGridView" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Border BorderThickness="0,0,1,1" BorderBrush="Gray" Background="Transparent">
+                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,8,5,0" Width="{TemplateBinding Width}" TextAlignment="Center" Height="35" Foreground="black"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+
+        <Storyboard x:Key="abrirModificar">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="gdBuscar">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-150"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="gdAgregar">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-140"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="abrirBuscar">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="gdBuscar">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.0" Value="-150"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="gdAgregar">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.0" Value="-140"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnPanelBuscar">
+            <BeginStoryboard Storyboard="{StaticResource abrirBuscar}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnPanelAgregar">
+            <BeginStoryboard x:Name="CloseMenu_BeginStoryboard" Storyboard="{StaticResource abrirModificar}"/>
+        </EventTrigger>
+    </Page.Triggers>
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="25"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF212529" Grid.ColumnSpan="3" Margin="0,0,0.2,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnCerrarConfiguracion" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" VerticalAlignment="Center" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnClose_Click">
+                    <materialDesign:PackIcon Kind="Close"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <materialDesign:Card Height="25">
+                    <StackPanel Orientation="Horizontal" Background="#E9ECEF">
+                        <TextBlock Name="txtbMaestro" Text="Configuración de maestros: " Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </materialDesign:Card>
+            </Grid>
+            <Grid Grid.Row="1" x:Name="gdOperaciones">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Height="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="gdAgregar" Grid.Row="1" Margin="0,10" RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                        <Border BorderThickness="1,1,1,1" BorderBrush="Gray" Height="25" VerticalAlignment="Top" Background="#F7F7F7">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Agregar detalle" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                        <Border BorderThickness="1,0,1,1" BorderBrush="Gray">
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0" >
+                                <TextBox Name="txtDescripcion" Width="450" Height="48" MaxLength="50" Margin="35,35,0,0" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Descripción" materialDesign:HintAssist.IsFloating="True" PreviewTextInput="txt_PreviewTextInput"/>
+                                <CheckBox Name="chkActivo" Width="80" Margin="35,55,0,0" Content="Activo"/>
+                                <Button Name="btnInfo" Width="30" Height="30" Margin="0,45,0,0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF19817B" Click="btnInfo_Click">
+                                    <materialDesign:PackIcon Kind="Information" Width="30" Height="30"/>
+                                </Button>
+                                <Button Name="btnGuardar" Width="100" Margin="70,45,0,0" Content="Ingresar" Background="#FF19817B" BorderBrush="#FF19817B" Click="btnGuardar_Click"/>
+                                <Button Name="btnLimpiar" Width="100" Margin="15,45,0,0" Content="Limpiar" Background="#FFE89036" BorderBrush="#FFE89036" Click="btnCancelar_Click"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    <Grid x:Name="gdBuscar" Grid.Row="0" Margin="0,20,0,0" RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                        <Border BorderThickness="1,1,1,1" BorderBrush="Gray" Height="25" VerticalAlignment="Top" Background="#F7F7F7">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Búsqueda" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                        <Border BorderThickness="1,0,1,1" BorderBrush="Gray">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="1" Grid.RowSpan="2">
+                                    <Label Name="lbBusqueda" Content="Panel para buscar maestros detalles"/>
+                                    <Button Name="btnBFechas" Content="Buscar por fechas" Background="#FF212529" BorderBrush="#FF212529" VerticalAlignment="Top" HorizontalAlignment="Right" Width="150" Click="btnBFechas_Clik"/>
+                                    <Button Name="BtnBDia" Content="Buscar por día" Background="#FF212529" BorderBrush="#FF212529"  VerticalAlignment="Top" HorizontalAlignment="Right" Width="150" Click="btnBDia_Clik" Visibility="Collapsed"/>
+                                </Grid>
+
+                                <Grid Grid.Row="2" >
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBox x:Name="txtBuscarDescripcion" Width="250" Height="45" VerticalAlignment="Bottom" Margin="15,10"  materialDesign:HintAssist.Hint="Descripción" materialDesign:HintAssist.IsFloating="True" PreviewTextInput="txt_PreviewTextInput" RenderTransformOrigin="0.51,0.18"/>
+                                        <ComboBox x:Name="cmbIndActivo"  Width="150" VerticalAlignment="Bottom" Margin="5,10" materialDesign:HintAssist.Hint="Estatus" materialDesign:HintAssist.IsFloating="True" Height="45">
+                                            <ComboBoxItem Content="Todos" Margin="5,1,1,1"/>
+                                            <ComboBoxItem Content="Activo" Margin="5,1,1,1"/>
+                                            <ComboBoxItem Content="Inactivo" Margin="5,1,1,1"/>
+                                        </ComboBox>
+
+
+                                        <DatePicker x:Name="dpFecha" Width="200" Margin="20,10" ToolTip="Usada para buscar maestros creados en la fecha indicada" VerticalAlignment="Bottom" materialDesign:HintAssist.Hint="Fecha creación" materialDesign:HintAssist.IsFloating="True"/>
+                                        <DatePicker x:Name="dpFechaInicial" Width="120" VerticalAlignment="Bottom" Margin="15,10" ToolTip="Fecha de creacion inicio" materialDesign:HintAssist.Hint="Desde" materialDesign:HintAssist.IsFloating="True" Visibility="Collapsed" />
+                                        <DatePicker x:Name="dpFechaFinal" Width="120" VerticalAlignment="Bottom" Margin="15,10" ToolTip="Fecha de creacion fin" materialDesign:HintAssist.Hint="Hasta" materialDesign:HintAssist.IsFloating="True" Visibility="Collapsed"/>
+
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+                                        <Button x:Name="btnBuscar"  Width="60" Background="#FF19817B" BorderBrush="#FF19817B" Click="btnBuscar_Click" HorizontalAlignment="Right" Margin="30,24,0,23" >
+                                            <materialDesign:PackIcon Kind="SearchWeb" Width="auto" Height="auto"/>
+                                        </Button>
+                                        <Button x:Name="btnBuscarLimpiar" Width="60"   Background="#FFE89036" BorderBrush="#FFE89036" Click="btnBuscarLimpiar_Click" Margin="10,0,0,0" HorizontalAlignment="Right">
+                                            <materialDesign:PackIcon Kind="Broom" Height="auto" Width="auto"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+                <Border Grid.Row="1" BorderThickness="1,0,1,0" BorderBrush="Gray">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Name="lvCambiarPanel" Content="Agregar detalle" VerticalAlignment="Center" Padding="0,0,0,2" Margin="0,0,20,0" />
+                        <Button x:Name="btnPanelAgregar" ToolTip="Muestra panel para agregar maestros"  Height="25" Width="25" Padding="0" Background="#FF19817B" BorderBrush="#FF19817B" VerticalAlignment="Center" Margin="0,0,3,0" Click="btnPanelAgregar_Click">
+                            <materialDesign:PackIcon Kind="Plus" Height="auto" Width="auto"/>
+                        </Button>
+                        <Button x:Name="btnPanelBuscar" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Muestra panel para buscar maestros" Height="25" Width="25" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="btnPanelBuscar_Click" Visibility="Collapsed">
+                            <materialDesign:PackIcon Kind="SearchWeb" Height="auto" Width="auto" />
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+
+                <Grid Grid.Row="2">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border BorderThickness="1,1,1,1" BorderBrush="Gray" Height="25" VerticalAlignment="Top" Background="#F7F7F7">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Listado de detalles" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+                           
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <Border BorderThickness="1,0,1,1" BorderBrush="Gray" Grid.Row="0">
+                                <StackPanel Margin="10">
+                                    <ListView Name="listaMaestrosDetalle" Height="280" materialDesign:ListViewAssist.ListViewItemPadding="2" ItemsSource="{Binding ListaMaestros}"  IsTextSearchEnabled="False" FontSize="14" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <ListView.Resources>
+                                            <Style TargetType="GridViewColumnHeader">
+                                                <Setter Property="Height" Value="20" />
+                                            </Style>
+                                        </ListView.Resources>
+                                        <ListView.View>
+                                            <GridView AllowsColumnReorder="False">
+                                                <GridViewColumn Header="Descripción" Width="280" DisplayMemberBinding="{Binding descripcion}" HeaderContainerStyle="{StaticResource ResourceKey=ColumnasGridView}"/>
+                                                <GridViewColumn Header="Estatus" Width="200" HeaderContainerStyle="{StaticResource ResourceKey=ColumnasGridView}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Width="180" Height="30" TextAlignment="Center" >
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding indActivo}" Value="True">
+                                                                                <Setter Property="Text" Value="Activo"/>
+                                                                                <Setter Property="Background" Value="#19817B"/>
+                                                                                <Setter Property="Foreground" Value="White"/>
+                                                                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding indActivo}" Value="False">
+                                                                                <Setter Property="Text" Value="Inactivo"/>
+                                                                                <Setter Property="Background" Value="#E89036"/>
+                                                                                <Setter Property="Foreground" Value="White"/>
+                                                                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Header="Fecha creación" Width="180" DisplayMemberBinding="{Binding fechaCreacion}" HeaderContainerStyle="{StaticResource ResourceKey=ColumnasGridView}"/>
+                                                <GridViewColumn Header="Fecha actualización" Width="180" DisplayMemberBinding="{Binding fechaOcurrencia}" HeaderContainerStyle="{StaticResource ResourceKey=ColumnasGridView}"/>
+                                                <GridViewColumn Header="" Width="56" HeaderContainerStyle="{StaticResource ResourceKey=ColumnasGridView}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Image Name="imgModificar" Width="28" Height="25" HorizontalAlignment="Left" Source="/Imagen/modificar.png" MouseLeftButtonDown="imgModificar_MouseLeftButtonDown"/>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </StackPanel>
+                            </Border>
+                            <Grid Grid.Row="1">
+                                <Button Name="btnVolver" Background="#FF19817B" BorderBrush="#FF19817B" Width="87" Height="28" HorizontalAlignment="Right" Margin="0,0,25,0" Visibility="Collapsed" Click="btnVolver_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ArrowLeft" Width="15" Height="20" Margin="0,1,0,0"/>
+                                        <TextBlock Text="Volver"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
+     

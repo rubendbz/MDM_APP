@@ -1,0 +1,123 @@
+﻿<Window x:Class="MasterOfMasterDesktop.MainWindow"
+        x:Name="Principal"
+        x:FieldModifier="public"
+        xmlns:menua="clr-namespace:MasterOfMasterDesktop.UI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="MasterOFMaster" Height="710" Width="1210" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" Foreground="White">
+
+    
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="225"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="BarraSuperior" Grid.ColumnSpan="2" Background="#343A40" MouseDown="BarraSuperior_MouseDown" HorizontalAlignment="Left" Width="1200">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnCerrar" Click="btnCerrar_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" VerticalAlignment="Center" Width="35" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White">
+                    <materialDesign:PackIcon Kind="Power" Width="35" Height="25"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Grid.Row="1" Background="#212529" >
+
+                <Expander Name="exMaestros" Margin="10" Background="#343A40" BorderBrush="#343A40" ToolTip="Menú de maestros cabeceras" Header="Maestros" Foreground="White"  Expanded="exMaestros_Expanded"  MaxHeight="600" >
+                    <StackPanel>
+                        <Button x:Name="btnConfiguracion" Margin="10,10,10,0" ToolTip="Configuración de maestros cabeceras" Background="#FFE89036" BorderBrush="#FFE89036" Click="btnConfiguracion_Click">
+                            <Grid Width="150">
+                                <materialDesign:PackIcon Kind="Settings" VerticalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Text="Configuración"/>
+                            </Grid>
+                        </Button>
+                        <StackPanel Width="185" Orientation="Horizontal" Margin="10,0,10,0">
+                            <TextBox Name="tbMnBuscar" Width="185" ToolTip="Buscar maestro cabecera por descripción" MaxLength="52" Foreground="Black" Background="White" materialDesign:HintAssist.Hint="Buscar" Margin="0,10,0,5" FontSize="14" HorizontalAlignment="Left"  VerticalAlignment="Bottom" TextChanged="tbMnBuscar_TextChanged"  PreviewKeyDown="tbMnBuscar_PreviewKeyDown"/>
+                        </StackPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="350">
+                            <StackPanel Orientation="Vertical" >
+                                <ListView Name="lvMnMCabecera" Width="180" ItemsSource="{Binding listaMC}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                    <ListView.Resources>
+                                        <Style TargetType="GridViewColumnHeader">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </Style>
+                                    </ListView.Resources>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btnMaestroCabecera" ToolTip="Presione para ingresar a los detalles del maestro cabecera" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#343A40" BorderBrush="#343A40"  FontSize="14" Click="btnDetalles_Click"  Content="{Binding descripcion}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Expander>
+
+
+
+
+                <Expander Name="exMA" Margin="10" Background="#343A40" BorderBrush="#343A40" ToolTip="Menú de maestros avanzados" Header="M. Avanzados" Foreground="White" Expanded="exMA_Expanded" MaxHeight="600" >
+                    <StackPanel>
+                        <Button x:Name="btn" Margin="10,10,10,0" ToolTip="Crear maestro avanzado" Background="#FFE89036" BorderBrush="#FFE89036" Click="btn_Click">
+                            <Grid Width="150">
+                                <TextBlock HorizontalAlignment="Center" Text="Crear maestro"/>
+                            </Grid>
+                        </Button>
+                        <StackPanel Width="185" Orientation="Horizontal" Margin="10,0,10,0">
+                            <TextBox Name="tbMnBuscarMA" Width="185" ToolTip="Buscar maestro avanzado por nombre" MaxLength="27" Foreground="Black" Background="White" materialDesign:HintAssist.Hint="Buscar" Margin="0,10,0,5" FontSize="14" HorizontalAlignment="Left"  VerticalAlignment="Bottom" TextChanged="tbMnBuscarMA_TextChanged"  PreviewKeyDown="tbMnBuscar_PreviewKeyDown"/>
+                        </StackPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="350">
+                            <StackPanel Orientation="Vertical" >
+                                <ListView Name="lvMnMAvanzado" Width="180" ScrollViewer.HorizontalScrollBarVisibility="Disabled" StylusButtonDown="lvMnMAvanzado_StylusButtonDown">
+                                    <ListView.Resources>
+                                        <Style TargetType="GridViewColumnHeader">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </Style>
+                                    </ListView.Resources>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btnMaestroAvanzado" ToolTip="Presione para modificar maestro avanzado" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#343A40" BorderBrush="#343A40"  FontSize="14" Click="btnMAMod_Click"  Content="{Binding NombreTabla}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Expander>
+               
+
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Image Source="/Imagen/Logotipo Norkut blanco con color.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Frame Name="FrameBody" NavigationUIVisibility="Hidden"  Source="/MasterOfMasterDesktop;component/UI/uiIndex.xaml"/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="0" Background="#343A40"/>
+        <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Background="#212529"/>
+        <Grid Grid.Row="2" Grid.ColumnSpan="3" Background="#212529"/>
+    </Grid>
+</Window>

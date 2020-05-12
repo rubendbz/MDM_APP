@@ -1,0 +1,1084 @@
+﻿@{
+    ViewBag.Title = "Configurar Maestro";
+}
+
+<div class="breadcrumb" id="titulo">
+    Configuración de maestros
+</div>
+
+
+<div class="card mb-3" id="panelIngresar" style="display:none;">
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <div>
+                <i class="fas fa-table"></i>
+                <span id="tabla-ingreso">Ingresar nuevo maestro</span>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" id="finsert">
+                <input class="form-control" style="max-width:100%;" id="Descripcion" pattern="^[a-zA-ZA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ][0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$" placeholder="Descripción" name="Descripcion" type="text" maxlength="50" minlength="4" />
+                <div class="invalid-feedback" style="display:none"></div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="checkbox">
+
+                    @Html.CheckBox("Estado", new { @checked = "checked", @id = "Estado" })
+                    <label for="Estado" style="text-align: center;">Activo</label>
+                </div>
+
+
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                <a id="info">
+                    <i class="fas fa-info" style="color:white; border-radius:100%;padding:5px 10px; background-color:#497e79;margin-top:7px"></i>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <input class="btn btn-success" data-dismiss="modal" style="width:100%" type="button" value="Guardar" id="btnGuardar">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <input class="btn btn-warning" data-dismiss="modal" style="width:100% ; color:#fff" type="button" value="Cancelar" id="btnCancelar">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Busqueda Por Filtros Rango de Fechas Maestros Cabecera-->
+<div class="card mb-3" id="panelBuscar">
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <div>
+                <i class="fas fa-table"></i>
+                <span id="busqueda">Búsqueda de maestros</span>
+            </div>
+            <a id="BtnFechaDia" class="btn btn-success btn-sm" style="width:15%; font-weight: bold;color:white">  Fecha por día  <i class="fas fa-calendar-alt"></i></a>
+        </div>
+    </div>
+
+    <!-- Contenido de Filtros cabecera-->
+    <div class="card-body">
+
+
+        <div class="row form-group">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style="padding-top:2.05em;">
+                <input id="FiltroDescripcion" type="text" class="form-control" placeholder="Descripción a filtrar" />
+                <div style="padding-top:1.5em;">
+                    <select class="form-control" id="FiltroEstatus" style="border-color:green">
+                        <option value="null" selected disabled>Estatus</option>
+                        <option value="null">Todos</option>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <div class="form-group row" >
+                    <label for="example-date-input" class="col-4 col-form-label" style="padding-top:2em;">Fecha inicial</label>
+                    <div class="col-8" id="fechaRangoInicial">
+                        <label class="form-label-group" for="FiltroFechaInicial">Fecha de creación</label> 
+                        <input id="FiltroFechaInicial"  class="form-control" type="date" title="Fecha de creación">
+                    </div>
+                  
+                        <label for="example-date-input" class="col-4 col-form-label" style="padding-top:1.2em;">Fecha final</label>
+                        <div class="col-8" id="fechaRangoFinal" style="padding-top:1.5em;">
+                            <input id="FiltroFechaFinal" class="form-control" type="date" title="Fecha de creación">
+                        </div>
+               
+                    </div>
+            </div>
+
+
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" style="padding-top:2em;">
+                <div>
+                    <button type="button" id="BtnBuscar" class="btn btn-success" data-dismiss="modal">Buscar</button>
+                </div>
+                <div style="padding-top:1.5em;">
+                        <button id="BtnCancelarBusqueda2" type="button" class="btn btn-warning btn-cancelar" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+           
+        </div>
+
+        
+    </div>
+</div>
+
+<!-- Busqueda Por Filtros FechaDia Maestros Cabecera-->
+<div class="card mb-3" id="panelBuscarDia" style="display:none">
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <div>
+                <i class="fas fa-table"></i>
+                <span id="busqueda">Búsqueda de maestros</span>
+
+            </div>
+            <a id="BtnFechaRango" class="btn btn-success btn-sm" style="width:25%; font-weight: bold;color:white"> Filtrar por rango de fechas  <i class="fas fa-calendar-alt"></i></a>
+        </div>
+    </div>
+
+    <!-- Contenido de Filtros-->
+    <div class="card-body">
+
+
+        <div class="row form-group">
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"style="padding-top:2em;">
+                <input id="FiltroDescripciondia" type="text" class="form-control"  placeholder="Descripción a filtrar"/>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 d-flex justify-content-center"style="padding-top:2em;">
+
+                <select class="form-control" style="border-color:green;" id="FiltroEstatusdia" >
+                    <option value="null" disabled selected>Estatus</option>
+                    <option value="null">Todos</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" id="fechaDia">
+                <label class="form-label-group" for="FiltroFechaInicialdia">Fecha de creación</label>
+                <input id="FiltroFechaInicialdia" class="form-control" type="date" value="" />
+
+
+            </div>
+
+
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"style="padding-top:2em;">
+                <button type="button" id="BtnBuscarDia" style="width:120%;" class="btn btn-success" data-dismiss="modal">Buscar</button>
+
+            </div>
+
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"style="padding-top:2em;">
+                <button id="BtnCancelarBusqueda" type="button" class="btn btn-warning btn-cancelar" data-dismiss="modal">Cancelar</button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Busqueda Por Filtros FechaDia Maestros Detalle-->
+<div class="card mb-3" id="panelBuscarDiaDetalles" style="display:none">
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <div>
+                <i class="fas fa-table"></i>
+                <span id="busqueda">Búsqueda de maestros detalles</span>
+
+            </div>
+            <a id="BtnFechaRangoDetalles" class="btn btn-success btn-sm" style="width:25%; font-weight: bold; color:white;"> Filtrar por rango de fechas  <i class="fas fa-calendar-alt"></i></a>
+        </div>
+    </div>
+    <!-- Contenido de Filtros detalles-->
+    <div class="card-body">
+
+        @*panel de busqueda por fecha en maestro cabecera*@
+        <div class="row form-group">
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="padding-top:2em;">
+                <input id="FDescripciondia" type="text" class="form-control" placeholder="Descripción a filtrar"/>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 d-flex justify-content-center" style="padding-top:2em;">
+
+                <select class="form-control" id="fEstatusdia" style="border-color:green">
+                    <option value="null" selected disabled>Estatus</option>
+                    <option value="null">Todos</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" id="fechaDiaDetalles">
+                <label class="form-label-group" for="FiltroFecha" >Fecha de creación</label>
+                <input id="FiltroFecha" style="margin-top:0em;" class="form-control" type="date"  value="" />
+
+
+            </div>
+
+
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"style="padding-top:2em;">
+                <button type="button" id="BtnBuscarDiaDetalle" style="width:120%" class="btn btn-success" data-dismiss="modal">Buscar</button>
+
+            </div>
+
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"style="padding-top:2em;">
+                <button id="BtnCancelarBusqueda3" type="button" class="btn btn-warning btn-cancelar" data-dismiss="modal">Cancelar</button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<!-- Busqueda Por Filtros Maestros Detalles-->
+<div class="card mb-3" id="panelBuscarDetalles" style="display:none;">
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <div>
+                <i class="fas fa-table"></i>
+                <span id="busqueda">Búsqueda de maestros detalles</span>
+
+            </div>
+
+            <a id="BtnFechaDiaDetalles" class="btn btn-success btn-sm" style="width:15%; font-weight: bold; color:white;">  Fecha por día  <i class="fas fa-calendar-alt"></i></a>
+        </div>
+    </div>
+
+    <!-- Contenido de Filtros detalles-->
+    <div class="card-body">
+
+
+
+
+
+
+        <div class="row form-group">
+
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style="padding-top:2.05em;">
+                <input id="FiltroDescripciond" type="text" class="form-control" placeholder="Descripción a filtrar" />
+                <div style="padding-top:1.5em">
+                    <select class="form-control" id="FiltroEstatusd" style="border-color:green">
+                        <option value="null" selected disabled>Estatus</option>
+                        <option value="null">Todos</option>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <div class="form-group row">
+                    <label for="example-date-input" class="col-4 col-form-label" style="padding-top:1.8em; ">Fecha inicial</label>
+                    <div class="col-8" id="fechaRangoInicialDetalle">
+                        <label class="form-label-group" for="FiltroFechaIniciald">Fecha de creación</label>
+                        <input id="FiltroFechaIniciald" class="form-control" type="date">
+
+                    </div>
+
+                    <label for="example-date-input" class="col-4 col-form-label" style="padding-top:1.2em;">Fecha final</label>
+                    <div class="col-8" id="fechaRangoFinalDetalle" style="padding-top:1.5em;">
+                        <input id="FiltroFechaFinald" class="form-control" type="date">
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" style="padding-top:2em;">
+                <div>
+                    <button type="button" id="BtnBuscarDetalles" class="btn btn-success" data-dismiss="modal">Buscar</button>
+
+                </div>
+                <div style="padding-top:1.5em;">
+                    <button type="button" class="btn btn-warning btn-cancelar" data-dismiss="modal">Cancelar</button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--Tabla Maestros-->
+<div class="card mb-3">
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <div>
+                <i class="fas fa-table"></i>
+                <span id="titulo-tabla">Listado de maestros</span>
+            </div>
+            <a id="BtnActivarPanelBusqueda" class="btn btn-success btn-sm" style="width:3%;font-weight: bold;color:white;"><i class="fas fa-plus"></i></a>
+            <a id="BtnActivarPanelBusquedaDetalles" class="btn btn-success btn-sm" style="width:3%; display:none;font-weight: bold;color:white"><i class="fas fa-search"></i></a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <!--Tabla-->
+            <table class="table table-bordered" id="dataTable" style="width:100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="width:50%">Descripción <span class="metaforas pull-right glyphicon glyphicon-sort"></span></th>
+                        <th style="width:16%">Estatus <span class="metaforas pull-right glyphicon glyphicon-sort"></span></th>
+                        <th style="width:17%">Fecha de creación <span class=" metaforas pull-right glyphicon glyphicon-sort"></span></th>
+                        <th style="width:17%">Fecha de actualización <span class=" metaforas pull-right glyphicon glyphicon-sort"></span></th>
+                    </tr>
+                </thead>
+                <tbody id="Maestro"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<a href="@Url.Action("Config","ConfiguracionM")" class="btn btn-success float-right" style="width:100px;margin-bottom:10px;display:none" id="volver"> 
+    <i class="fas fa-arrow-left"></i>
+    Volver
+</a>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modificar maestro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!--form id="frModificar" action="@Url.Action("ModificarMaestrosCabeceras","ConfiguracionM")" method="post"-->
+                <input type="hidden" name="DescripcionAntigua" id="DesAntigua" value="" />
+                <div class="row" id="fmofidicar">
+                    <div class="offset-md-1 col-md-3" id="AlerModi">
+                        <label for="Descripcion2">Descripción</label>
+                        <div class="invalid-feedback" style="display:none"></div>
+                    </div>
+                    <div class="col-md-7">
+                        <input type="text" id="Descripcion2" class="form-control" name="Descripcion" value="" placeholder="Descripción" required maxlength="50" minlength="4" pattern="^[a-zA-ZA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ][0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$"/>
+                        <div class="msg form-control-feedback"></div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="offset-md-1 col-md-3">
+                        <label for="Estado2" style="text-align: center;">Activo</label>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="checkbox">              
+                            @Html.CheckBox("Estado", new { @id = "Estado2" })
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+            <div class="modal-footer">
+                <button id="btnModificar" type="button" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal de Alertas-->
+<div class="modal" id="Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloNotificacion"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="mensaje"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script
+            {
+    <script>
+
+        /* Llena la tabla
+         *
+         */
+        function LlenarTabla() {
+            $.getJSON("@Url.Action("MaestrosCabeceras", "ConfiguracionM")", function (data) {
+                $('#dataTable').DataTable().clear();
+                $.each(data, function (key, item) {
+                    var i = key;
+                    //IndActivo
+                    var indicador = '<div class="d-flex justify-content-center">';
+                    if (item.indActivo) {
+                        indicador = indicador + '<span class="btn btn-success btn-sm" style="width:70%">Activo</span>';
+                    }
+                    else {
+                        indicador = indicador + '<span class="btn btn-warning btn-sm" style="width:70%">Inactivo</span>';
+                    }
+                    indicador = indicador + '</div>';
+
+                    //Fecha Creacion
+                    var fechaString1 = item.fechaCreacion.substr(6);
+                    var fechaActual1 = new Date(parseInt(fechaString1));
+                    var mes1 = fechaActual1.getMonth() + 1;
+                    var dia1 = fechaActual1.getDate();
+                    var anio1 = fechaActual1.getFullYear();
+                    var fechaCreacion = +dia1 + "/" + mes1 + "/" + anio1;
+
+                    //Fecha Ocurrecia
+                    var fechaString = item.fechaOcurrencia.substr(6);
+                    var fechaActual = new Date(parseInt(fechaString));
+                    var mes = fechaActual.getMonth() + 1;
+                    var dia = fechaActual.getDate();
+                    var anio = fechaActual.getFullYear();
+                    var fechaOcurrencia = dia + "/" + mes + "/" + anio;
+                    var td = '<div class="d-flex justify-content-between">' + fechaOcurrencia;
+                    td = td + '<a data-toggle="modal" data-target="#exampleModal" class="btnMod" data-descripcion="' + item.descripcion + '" data-indactivo="' + item.indActivo + '" data-idmaestroc="' + item.idMaestroCabecera + '" style="color:green"><i class="fas fa-edit"></i></a>';
+                    td = td + "</div>";
+                    var node = $('#dataTable').DataTable().row.add([
+                            item.descripcion,
+                            indicador,
+                            fechaCreacion,
+                            td
+                    ]);
+                    node.nodes().to$().children("td:first-child").attr('data-idmaestrocabecera', item.idMaestroCabecera);
+             
+                });
+            }).done(function () {
+                //Refresca la tabla
+                $('#dataTable').DataTable().draw(true);
+            });
+        }
+
+        $(document).ready(function () {
+            $(".btn-cancelar").click(function () {
+                if ($(location).attr('hash') != "") {
+                    var id = $(location).attr('hash');
+                    $(id).click();
+                }
+                else if (IdMC > 0) {
+                    LlenarTablaDetalle(IdMC);
+                }
+                else {
+                    LlenarTabla();
+                }
+                
+                $("#FiltroEstatusd option[value=null]").prop("selected", true);
+                $("#FiltroFechaIniciald").val(null);
+                $("#FiltroFechaFinald").val(null);
+                $("#FiltroDescripciond").val("");
+
+                $("#FiltroEstatus option[value=null]").prop("selected", true);
+                $("#FiltroFechaInicial").val(null);
+                $("#FiltroFechaFinal").val(null);
+                $("#FiltroDescripcion").val("");
+
+                $("#FiltroEstatusdia option[value=null]").prop("selected", true);
+                $("#FiltroFechaInicialdia").val(null);
+                $("#FiltroDescripciondia").val("");
+
+                $("#fEstatusdia option[value=null]").prop("selected", true);
+                $("#FiltroFecha").val(null);
+                $("#FDescripciondia").val("");
+            });
+
+            $("BtnCancelarBusqueda").click(function () {
+
+                $("#FiltroEstatusd option[value=null]").prop("selected", true);
+                $("#FiltroFechaIniciald").val(null);
+                $("#FiltroFechaFinald").val(null);
+                $("#FiltroDescripciond").val("");
+
+                $("#FiltroEstatus option[value=null]").prop("selected", true);
+                $("#FiltroFechaInicial").val(null);
+                $("#FiltroFechaFinal").val(null);
+                $("#FiltroDescripcion").val("");
+
+                $("#FiltroEstatusdia option[value=null]").prop("selected", true);
+                $("#FiltroFechaInicialdia").val(null);
+                $("#FiltroDescripciondia").val("");
+
+                $("#fEstatusdia option[value=null]").prop("selected", true);
+                $("#FiltroFecha").val(null);
+                $("#FDescripciondia").val("");
+            });
+
+            $("#info").click(function () {
+                $("#tituloNotificacion").html("Por favor tome en cuenta las siguientes reglas para ingresar los datos. ");
+                $("#mensaje").html("Solo se admiten caracteres de [A-Z] o [0-9]. <br> La cadena debe tener una longitud mínima de cuatro (4) caracteres. <br> La cadena debe tener una longitud máxima de cincuenta (50) caracteres.<br> La cadena no puede empezar con un carácter numérico (0-9).<br>La cadena debe contener al menos un (1) carácter alfabético.<br>La cadena no puede empezar con un espacio en blanco.");
+                $("#Modal").modal('show');
+            });
+
+            $("#BtnActivarPanelBusquedaDetalles").html('<i class="fas fa-plus"></i>');
+            $("#BtnActivarPanelBusqueda").click(function () {
+      
+                if ($(this).find("i.fa-search").length) {
+                    $(this).html('<i class="fas fa-plus"></i>');
+                    $('#panelBuscar').show();
+                    $('#panelIngresar').hide();
+
+                    $('#Descripcion').val("");
+                    $('#Estado').prop("checked", true);
+
+                } else {
+                    $(this).html('<i class="fas fa-search"></i>');
+                    $('#panelBuscar').hide();
+                    $('#panelIngresar').show();
+
+                    $("#FiltroEstatus option[value=null]").prop("selected", true);
+                    $("#FiltroFechaInicial").val(null);
+                    $("#FiltroFechaFinal").val(null);
+                    $("#FiltroDescripcion").val("");
+
+                    $("#FiltroEstatusdia option[value=null]").prop("selected", true);
+                    $("#FiltroFechaInicialdia").val(null);
+                    $("#FiltroDescripciondia").val("");
+                }
+                $('#panelBuscarDia').hide();
+                $('#panelBuscarDetalles').hide();
+                $('#panelBuscarDiaDetalles').hide();
+            });
+
+            $("#BtnActivarPanelBusquedaDetalles").click(function () {
+                if ($(this).find("i.fa-search").length) {
+                    $(this).html('<i class="fas fa-plus"></i>');
+                    $('#panelBuscarDetalles').show();
+                    $('#panelIngresar').hide();
+                    $('#panelBuscarDiaDetalles').hide();
+
+                    $('#Descripcion').val("");
+                    $('#Estado').prop("checked", true);
+
+                } else {
+                    $(this).html('<i class="fas fa-search"></i>');
+                    $('#panelBuscarDetalles').hide();
+                    $('#panelIngresar').show();
+                    $('#panelBuscarDiaDetalles').hide();
+
+                    $("#FiltroEstatusd option[value=null]").prop("selected", true);
+                    $("#FiltroFechaIniciald").val(null);
+                    $("#FiltroFechaFinald").val(null);
+                    $("#FiltroDescripciond").val("");
+
+                    $("#fEstatusdia option[value=null]").prop("selected", true);
+                    $("#FiltroFecha").val(null);
+                    $("#FDescripciondia").val("");
+                }
+
+                $('#panelBuscar').hide();
+                $('#panelBuscarDia').hide();
+            });
+
+            $("#BtnFechaDia").click(function () {
+                $('#panelBuscarDetalles').hide();
+                $('#panelBuscarDiaDetalles').hide();
+                $('#panelBuscar').hide();
+
+                $('#panelBuscarDia').show();
+
+
+            });
+
+            $("#BtnFechaRango").click(function () {
+                $('#panelBuscarDetalles').hide();
+                $('#panelBuscarDiaDetalles').hide();
+
+                $('#panelBuscar').show();
+                $('#panelBuscarDia').hide();
+
+
+            });
+            $("#BtnFechaDiaDetalles").click(function () {
+                $('#panelBuscar').hide();
+                $('#panelBuscarDia').hide();
+                $('#panelBuscarDetalles').hide();
+
+                $('#panelBuscarDiaDetalles').show();
+
+
+            });
+
+            $("#BtnFechaRangoDetalles").click(function () {
+                $('#panelBuscar').hide();
+                $('#panelBuscarDia').hide();
+               
+                $('#panelBuscarDetalles').show();
+                $('#panelBuscarDiaDetalles').hide();
+                $('#FDescripciondia').clear();
+                LlenarTabla();
+
+            });
+   
+
+            $('#btnGuardar').click(function () {
+                /*Validacion Alfanumerica*/
+                if (!valicacion_alfanumerica($("#finsert"), $("#finsert .invalid-feedback"), $("#Descripcion").val())) {
+                   
+                    return 0;
+                }
+
+                var descripcion = $("#Descripcion").val();
+                var estado = $("#Estado").prop("checked");
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        Descripcion: descripcion,
+                        Estado: estado
+                    },
+                    url: "@Url.Action("IngresarMaestrosCabeceras", "ConfiguracionM")",
+                    success: function (pRespuesta) {          
+                        $("#Descripcion").val("");
+                        $("#Estado").prop("checked", true);
+                        $("#Modal").modal('show');
+                        $("#tituloNotificacion").html(pRespuesta.titulo);
+                        $("#mensaje").html(pRespuesta.message);
+                        LlenarTabla();
+                        LLenarMenu();
+                    }
+                });
+            });
+
+            //Petición AJAX
+            $.getJSON("@Url.Action("MaestrosCabeceras", "ConfiguracionM")", function (data) {
+                var tb
+                $.each(data, function (key, item) {
+                    td = "<tr>";
+
+                    //Celda de Descripcion
+                    td = td + '<td data-idMaestroCabecera="' + item.idMaestroCabecera + '">';
+                    td = td + item.descripcion;
+                    td = td + "</td>";
+
+                    //Celda de activo/inactivo
+                    td = td + '<td>';
+                    td = td + '<div class="d-flex justify-content-center">';
+                    if (item.indActivo) {
+                        td = td + '<span class="btn btn-success btn-sm" style:width:70%;background:#497e79 ">Activo</span>';
+                    }
+                    else {
+                        td = td + '<span class="btn btn-warning btn-sm" >Inactivo</span>';
+                    }
+                    td = td + '</div>';
+                    td = td + '</td>';
+
+
+
+                    //Celda de fecha Creacion
+                    td = td + "<td>";
+                    var fechaString1 = item.fechaCreacion.substr(6);
+                    var fechaActual1 = new Date(parseInt(fechaString1));
+                    var mes1 = fechaActual1.getMonth() + 1;
+                    var dia1 = fechaActual1.getDate();
+                    var anio1 = fechaActual1.getFullYear();
+                    td = td + dia1 + "/" + mes1 + "/" + anio1;
+                    td = td + "</td>";
+
+                    td = td + "<td>";
+                    var fechaString = item.fechaOcurrencia.substr(6);
+                    var fechaActual = new Date(parseInt(fechaString));
+                    var mes = fechaActual.getMonth() + 1;
+                    var dia = fechaActual.getDate();
+                    var anio = fechaActual.getFullYear();
+                    td = td + '<div class="d-flex justify-content-between">' + dia + "/" + mes + "/" + anio;
+                    td = td + '<a data-toggle="modal" data-target="#exampleModal" class="btnMod" data-descripcion="' + item.descripcion + '" data-indactivo="' + item.indActivo + '" style="color:green"><i class="fas fa-edit"></i></a>';
+                    td = td + "</div>";
+                    td = td + "</td>";
+                    td = td + "</tr>";
+                    $("#Maestro").append(td);
+                });
+            }).done(function () {
+                $.when($('#dataTable').DataTable({
+                    search:false,
+                    language: {
+                        "search": "Buscar",
+                        "lengthMenu": "Mostrar _MENU_ Registros",
+                        "zeroRecords": "No se encontraron resultados",
+                        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                    }
+
+                })).promise()
+                .done(function () {
+                    // Fuerza el click si hay un #<id> en la url
+                    if ($(location).attr('hash') != "") {
+                        var id = $(location).attr('hash');
+                        $(id).click();              
+                    }
+                });
+            });
+            //Click Modificar Fila
+            $('#dataTable tbody').on('click', 'a', function () {
+                $("#DesAntigua").val($(this).attr("data-descripcion"));
+                $("#Descripcion2").val($(this).attr("data-descripcion"));
+                if ($(this).attr("data-indactivo") == "true") {
+                    $("#Estado2").prop("checked", true);
+                } else {
+                    $("#Estado2").prop("checked", false);
+                }
+
+            });
+            //Click Cargar detalles
+            $('#dataTable tbody').on('click', 'td:first-child', function () {
+
+                $('#BtnActivarPanelBusqueda').hide();
+                $('#BtnActivarPanelBusquedaDetalles').show();
+
+                $('#panelBuscarDiaDetalles').hide();
+                $('#panelBuscarDetalles').show();
+
+                $('#panelBuscarDia').hide();
+
+                $('#panelIngresar').hide();
+                $('#panelBuscar').hide();
+
+
+                $("#titulo").text("Configuración de Maestro " + $(this).text());
+                $("#titulo-tabla").html("Listado de Maestros Detalle");
+                IdMaestroCabecera = $(this).attr("data-idMaestroCabecera");
+                if ($("#IdMaestroCabecera").length > 0) {
+                    $("#IdMaestroCabecera").val(IdMaestroCabecera);
+                } else {
+                    $("#finsert").append("<input id='IdMaestroCabecera' name='idMaestroCabecera' type='hidden' value='" + IdMaestroCabecera + "'/>");
+                }
+                $("#btnGuardar")
+                    .off("click")
+                    .click(function () {
+                        if (!valicacion_alfanumerica($("#finsert"), $("#finsert .invalid-feedback"), $("#Descripcion").val())) {
+                            return 0;
+                        }
+                        InsertMDetalle();
+                    });
+                LlenarTablaDetalle(IdMaestroCabecera);
+                //Refresca la tabla
+                $('#dataTable').DataTable().draw(true);
+
+                $('#dataTable tbody').off('click', 'td:first-child');
+
+            });
+            //Enviar formulario de Modificación
+            $("#btnModificar").click(function () {
+                /*Validacion Alfanumerica*/
+                if (!valicacion_alfanumerica($("#AlerModi"), $("#AlerModi .invalid-feedback"), $("#Descripcion2").val())) {
+                    return 0;
+                }
+                var descripcion = $("#Descripcion2").val();
+                var estado = $("#Estado2").prop("checked");
+                var descripcionAntigua = $("#DesAntigua").val();
+
+
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        DescripcionAntigua: descripcionAntigua,
+                        Descripcion: descripcion,
+                        Estado: estado
+                    },
+                    url: "@Url.Action("ModificarMaestrosCabeceras","ConfiguracionM")",
+                    success: function (pRespuesta) {
+                        $("#Modal").modal('show');
+                        $("#tituloNotificacion").html(pRespuesta.titulo);
+                        $("#mensaje").html(pRespuesta.message);
+                        LlenarTabla();
+                        LLenarMenu();
+                        if (pRespuesta.message == "Modificación completada") {
+                            $('#exampleModal').modal('hide');
+                        }
+                    }
+                });
+            });
+            $("#btnCancelar").click(function () {
+                $("#Descripcion").val("");
+                $("#Estado").prop('checked', true);
+                $("#finsert").removeClass("has-danger");
+                $("#finsert .invalid-feedback").text("");
+                $("#finsert .invalid-feedback").css("display", "none");
+                return true;
+            });
+        });
+        	
+        $('#Descripcion').keydown(function () {
+            $("#finsert").removeClass("has-danger");
+            $("#finsert .invalid-feedback").text("");
+            $("#finsert .invalid-feedback").css("display", "none");
+        })
+        $("#Descripcion2").keydown(function () {
+            $("#AlerModi").removeClass("has-danger");
+            $("#AlerModi .invalid-feedback").text("");
+            $("#AlerModi .invalid-feedback").css("display", "none");
+        })
+
+
+        //MaestrosCabecerasBusquedapor Rango de Fechas
+        $("#BtnBuscar").click(function () {
+
+            var bdescripcion = $("#FiltroDescripcion").val();
+            var bestado = $("#FiltroEstatus option:selected").val();
+            var bfechainicial;
+            var bfechafinal;
+            bfechainicial = $("#FiltroFechaInicial").val() == "" ? "0001-01-01" : $("#FiltroFechaInicial").val().toString();
+            bfechafinal = $("#FiltroFechaFinal").val() == "" ? "0001-01-01" : $("#FiltroFechaFinal").val().toString();
+
+            var d = new Date();
+            if (bfechainicial != "0001-01-01" && bfechafinal == "0001-01-01") {
+                $("#tituloNotificacion").html("Alerta");
+                $("#mensaje").html("Debe ingresar fecha final");
+                $("#Modal").modal('show');
+                return 0;
+            }
+
+            if (bfechainicial == "0001-01-01" && bfechafinal != "0001-01-01") {
+                $("#tituloNotificacion").html("Alerta");
+                $("#mensaje").html("Debe ingresar fecha inicial");
+                $("#Modal").modal('show');
+                return 0;
+            }
+            if ((new Date(bfechafinal) >= new Date(bfechainicial)) && new Date(bfechainicial) <= d.getTime()) {
+                $.ajax({
+                    type: "POST",
+                    data: {
+
+                        pDescripcion: bdescripcion,
+                        pIndActivo: bestado,
+                        pFechaInicial: bfechainicial,
+                        pFechaFinal: bfechafinal
+
+                    },
+                    url: "@Url.Action("MaestrosCabecerasBusqueda", "ConfiguracionM")",
+                    success: function (data) {
+                        $('#dataTable').DataTable().clear();
+                        $.each(data, function (key, item) {
+                            //IndActivo
+                            var indicador = '<div class="d-flex justify-content-center">';
+                            if (item.indActivo) {
+                                indicador = indicador + '<span class="btn btn-success btn-sm" style="width:70%">Activo</span>';
+                            }
+                            else {
+                                indicador = indicador + '<span class="btn btn-warning btn-sm" style="width:70%">Inactivo</span>';
+                            }
+                            indicador = indicador + '</div>';
+
+                            //Fecha Creacion
+                            var fechaString1 = item.fechaCreacion.substr(6);
+                            var fechaActual1 = new Date(parseInt(fechaString1));
+                            var mes1 = fechaActual1.getMonth() + 1;
+                            var dia1 = fechaActual1.getDate();
+                            var anio1 = fechaActual1.getFullYear();
+                            var fechaCreacion = +dia1 + "/" + mes1 + "/" + anio1;
+
+                            //Fecha Ocurrecia
+                            var fechaString = item.fechaOcurrencia.substr(6);
+                            var fechaActual = new Date(parseInt(fechaString));
+                            var mes = fechaActual.getMonth() + 1;
+                            var dia = fechaActual.getDate();
+                            var anio = fechaActual.getFullYear();
+                            var fechaOcurrencia = dia + "/" + mes + "/" + anio;
+                            var td = '<div class="d-flex justify-content-between">' + fechaOcurrencia;
+                            td = td + '<a data-toggle="modal" data-target="#exampleModal" class="btnMod" data-descripcion="' + item.descripcion + '" data-indactivo="' + item.indActivo + '" data-idmaestroc="' + item.idMaestroCabecera + '" style="color:green"><i class="fas fa-edit"></i></a>';
+                            td = td + "</div>";
+                            var node = $('#dataTable').DataTable().row.add([
+                                    item.descripcion,
+                                    indicador,
+                                    fechaCreacion,
+                                    td
+                            ]);
+                            node.nodes().to$().children("td:first-child").attr('data-idmaestrocabecera', item.idMaestroCabecera);
+                        });
+                        $('#dataTable').DataTable().draw(true);
+                    }
+                });
+
+            } else {
+                $("#tituloNotificacion").html("Alerta");
+                $("#mensaje").html("Verifique el rango de fechas ingresado");
+                $("#Modal").modal('show');
+            }
+        });
+
+        //MaestrosCabecerasBusqueda por Dia
+        $("#BtnBuscarDia").click(function () {
+
+            var bdescripcion = $("#FiltroDescripciondia").val();
+            var bestado = $("#FiltroEstatusdia option:selected").val();
+            var bfechainicial;
+            bfechainicial = $("#FiltroFechaInicialdia").val() == "" ? "0001-01-01" : $("#FiltroFechaInicialdia").val().toString();
+            var bfechafinal = bfechainicial;
+
+            var d = new Date();
+
+
+            if (new Date(bfechainicial) <= d.getTime()) {
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        pDescripcion: bdescripcion,
+                        pIndActivo: bestado,
+                        pFechaInicial: bfechainicial,
+                        pFechaFinal: bfechafinal
+
+                    },
+                    url: "@Url.Action("MaestrosCabecerasBusqueda", "ConfiguracionM")",
+                    success: function (data) {
+                        $('#dataTable').DataTable().clear();
+                        $.each(data, function (key, item) {
+                            //IndActivo
+                            var indicador = '<div class="d-flex justify-content-center">';
+                            if (item.indActivo) {
+                                indicador = indicador + '<span class="btn btn-success btn-sm" style="width:70%">Activo</span>';
+                            }
+                            else {
+                                indicador = indicador + '<span class="btn btn-warning btn-sm" style="width:70%">Inactivo</span>';
+                            }
+                            indicador = indicador + '</div>';
+
+                            //Fecha Creacion
+                            var fechaString1 = item.fechaCreacion.substr(6);
+                            var fechaActual1 = new Date(parseInt(fechaString1));
+                            var mes1 = fechaActual1.getMonth() + 1;
+                            var dia1 = fechaActual1.getDate();
+                            var anio1 = fechaActual1.getFullYear();
+                            var fechaCreacion = +dia1 + "/" + mes1 + "/" + anio1;
+
+                            //Fecha Ocurrecia
+                            var fechaString = item.fechaOcurrencia.substr(6);
+                            var fechaActual = new Date(parseInt(fechaString));
+                            var mes = fechaActual.getMonth() + 1;
+                            var dia = fechaActual.getDate();
+                            var anio = fechaActual.getFullYear();
+                            var fechaOcurrencia = dia + "/" + mes + "/" + anio;
+                            var td = '<div class="d-flex justify-content-between">' + fechaOcurrencia;
+                            td = td + '<a data-toggle="modal" data-target="#exampleModal" class="btnMod" data-descripcion="' + item.descripcion + '" data-indactivo="' + item.indActivo + '" data-idmaestroc="' + item.idMaestroCabecera + '" style="color:green"><i class="fas fa-edit"></i></a>';
+                            td = td + "</div>";
+                            var node = $('#dataTable').DataTable().row.add([
+                                    item.descripcion,
+                                    indicador,
+                                    fechaCreacion,
+                                    td
+                            ]);
+                            node.nodes().to$().children("td:first-child").attr('data-idmaestrocabecera', item.idMaestroCabecera);
+                        });
+                        $('#dataTable').DataTable().draw(true);
+                    }
+                });
+            } else {
+                $("#tituloNotificacion").html("Alerta");
+                $("#mensaje").html("Verifique el rango de fechas ingresado");
+                $("#Modal").modal('show');
+            }
+        });
+
+     
+
+        $("#BtnBuscar").click(function () {
+            if (document.getElementById('FiltroFechaFinal').value < document.getElementById('FiltroFechaInicial').value)
+                document.getElementById('FiltroFechaFinal').setCustomValidity('Esta fecha debe ser mayor a la fecha inicial');
+            else
+                document.getElementById('FiltroFechaFinal').setCustomValidity('');
+        });
+        $("#BtnBuscarDetalles").click(function () {
+
+            if (document.getElementById('FiltroFechaFinal').value < document.getElementById('FiltroFechaInicial').value) {
+                $("#Modal").modal('show');
+                $("#tituloNotificacion").html("Rango Fecha Incorrecto");
+                $("#mensaje").html("Esta fecha debe ser mayor a la fecha inicial");
+            }
+            else
+                document.getElementById('FiltroFechaFinal').setCustomValidity('');
+        });
+
+
+        //MaestrosDetallesBusqueda por Dia
+        $("#BtnBuscarDiaDetalle").click(function () {
+            var bdescripcion = $("#FDescripciondia").val();
+            var bestado = $("#fEstatusdia option:selected").val();
+            var bfechainicial;
+            var bfechafinal;
+            bfechainicial = $("#FiltroFecha").val() == "" ? "0001-01-01" : $("#FiltroFecha").val().toString();
+            bfechafinal = bfechainicial;
+            var idMaestroDetalle = $("#IdMaestroCabecera").val();
+            var d = new Date();
+
+
+
+            if (new Date(bfechainicial) <= d.getTime()) {
+                $.ajax({
+                    type: "POST",
+                    data: {
+        
+                        pIdMCabecera: idMaestroDetalle,
+                        pDescripcion: bdescripcion,
+                        pIndActivo: bestado,
+                        pFechaInicial: bfechainicial,
+                        pFechaFinal: bfechafinal
+
+                    },
+                    url: "@Url.Action("MaestrosDetallesBusqueda", "MD")",
+                    success: function (data) {
+                        $('#dataTable').DataTable().clear();
+                        $.each(data, function (key, item) {
+                            //IndActivo
+                            var indicador = '<div class="d-flex justify-content-center">';
+                            if (item.indActivo) {
+                                indicador = indicador + '<span class="btn btn-success btn-sm" style="width:70%">Activo</span>';
+                            }
+                            else {
+                                indicador = indicador + '<span class="btn btn-warning btn-sm" style="width:70%">Inactivo</span>';
+                            }
+                            indicador = indicador + '</div>';
+
+                            //Fecha Creacion
+                            var fechaString1 = item.fechaCreacion.substr(6);
+                            var fechaActual1 = new Date(parseInt(fechaString1));
+                            var mes1 = fechaActual1.getMonth() + 1;
+                            var dia1 = fechaActual1.getDate();
+                            var anio1 = fechaActual1.getFullYear();
+                            var fechaCreacion = +dia1 + "/" + mes1 + "/" + anio1;
+
+                            //Fecha Ocurrecia
+                            var fechaString = item.fechaOcurrencia.substr(6);
+                            var fechaActual = new Date(parseInt(fechaString));
+                            var mes = fechaActual.getMonth() + 1;
+                            var dia = fechaActual.getDate();
+                            var anio = fechaActual.getFullYear();
+                            var fechaOcurrencia = dia + "/" + mes + "/" + anio;
+                            var td = '<div class="d-flex justify-content-between">' + fechaOcurrencia;
+                            td = td + '<a data-toggle="modal" data-target="#exampleModal" class="btnMod" data-descripcion="' + item.descripcion + '" data-indactivo="' + item.indActivo + '" data-idmaestroc="' + item.idMaestroCabecera + '" style="color:green"><i class="fas fa-edit"></i></a>';
+                            td = td + "</div>";
+                            $('#dataTable').DataTable().row.add([
+                                    item.descripcion,
+                                    indicador,
+                                    fechaCreacion,
+                                    td
+                            ]).draw(false);
+                        });
+                        $('#dataTable').DataTable().draw(true);
+                    }
+            });
+        } else {
+            $("#tituloNotificacion").html("Alerta");
+            $("#mensaje").html("Verifique el rango de fechas ingresado");
+            $("#Modal").modal('show');
+        }
+        });
+
+
+    </script>
+}

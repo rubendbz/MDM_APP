@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+   
+}
+
+<h2>Index</h2>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $.getJSON("/Shared/", function (data) {
+
+
+            var tr;
+            $.each(data, function (d,i) {
+
+
+                tr = $('<tr/>');
+                tr.append("<td>" + i._descripcion + "</td>");
+                tr.append("<td>" + i._indActivo + "</td>");
+                tr.append("<td>" + i._fechaCreacion + "</td>");
+                $('#tblCongiguracionMaestros').append(tr);
+
+
+
+            });
+
+        });
+
+
+
+    });
+
+
+</script>
+<div class="form-horizontal">
+
+    <hr />
+    <div class="form-group">
+        <table id="tblCongiguracionMaestros" class="table table-responsive" style="width:400px">
+            <tr>
+                <th>
+                    Descripción
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                   Fecha de creación
+                </th>
+            </tr>
+            <tbody></tbody>
+        </table>
+
+
+
+    </div>
+</div>  
+

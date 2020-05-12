@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MasterOfMasterSvc" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:3767/MasterOfMasterSvc.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:3767/MasterOfMasterSvc.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:3767/MasterOfMasterSvc.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MasterOfMasterModels" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMasterOfMasterSvc_InsertarMaestroDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarMaestroDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_InsertarMaestroDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarMaestroDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ActualizarMaestroDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarMaestroDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ActualizarMaestroDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarMaestroDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ConsultarMaestroDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarMaestroDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ConsultarMaestroDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarMaestroDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_InsertarMaestroCabecera_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarMaestroCabecera" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_InsertarMaestroCabecera_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarMaestroCabeceraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ActualizarMaestroCabecera_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarMaestroCabecera" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ActualizarMaestroCabecera_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarMaestroCabeceraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ConsultarMaestroCabecera_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarMaestroCabecera" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ConsultarMaestroCabecera_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarMaestroCabeceraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_CrearTabla_InputMessage">
+    <wsdl:part name="parameters" element="tns:CrearTabla" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_CrearTabla_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CrearTablaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ListarMAestrosAvanzados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarMAestrosAvanzados" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_ListarMAestrosAvanzados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarMAestrosAvanzadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_buscarMAvanzado_InputMessage">
+    <wsdl:part name="parameters" element="tns:buscarMAvanzado" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_buscarMAvanzado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:buscarMAvanzadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_buscarClavePrimaria_InputMessage">
+    <wsdl:part name="parameters" element="tns:buscarClavePrimaria" />
+  </wsdl:message>
+  <wsdl:message name="IMasterOfMasterSvc_buscarClavePrimaria_OutputMessage">
+    <wsdl:part name="parameters" element="tns:buscarClavePrimariaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMasterOfMasterSvc">
+    <wsdl:operation name="InsertarMaestroDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/InsertarMaestroDetalle" message="tns:IMasterOfMasterSvc_InsertarMaestroDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/InsertarMaestroDetalleResponse" message="tns:IMasterOfMasterSvc_InsertarMaestroDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarMaestroDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ActualizarMaestroDetalle" message="tns:IMasterOfMasterSvc_ActualizarMaestroDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ActualizarMaestroDetalleResponse" message="tns:IMasterOfMasterSvc_ActualizarMaestroDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarMaestroDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ConsultarMaestroDetalle" message="tns:IMasterOfMasterSvc_ConsultarMaestroDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ConsultarMaestroDetalleResponse" message="tns:IMasterOfMasterSvc_ConsultarMaestroDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarMaestroCabecera">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/InsertarMaestroCabecera" message="tns:IMasterOfMasterSvc_InsertarMaestroCabecera_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/InsertarMaestroCabeceraResponse" message="tns:IMasterOfMasterSvc_InsertarMaestroCabecera_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarMaestroCabecera">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ActualizarMaestroCabecera" message="tns:IMasterOfMasterSvc_ActualizarMaestroCabecera_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ActualizarMaestroCabeceraResponse" message="tns:IMasterOfMasterSvc_ActualizarMaestroCabecera_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarMaestroCabecera">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ConsultarMaestroCabecera" message="tns:IMasterOfMasterSvc_ConsultarMaestroCabecera_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ConsultarMaestroCabeceraResponse" message="tns:IMasterOfMasterSvc_ConsultarMaestroCabecera_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CrearTabla">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/CrearTabla" message="tns:IMasterOfMasterSvc_CrearTabla_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/CrearTablaResponse" message="tns:IMasterOfMasterSvc_CrearTabla_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarMAestrosAvanzados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ListarMAestrosAvanzados" message="tns:IMasterOfMasterSvc_ListarMAestrosAvanzados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/ListarMAestrosAvanzadosResponse" message="tns:IMasterOfMasterSvc_ListarMAestrosAvanzados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="buscarMAvanzado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/buscarMAvanzado" message="tns:IMasterOfMasterSvc_buscarMAvanzado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/buscarMAvanzadoResponse" message="tns:IMasterOfMasterSvc_buscarMAvanzado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="buscarClavePrimaria">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/buscarClavePrimaria" message="tns:IMasterOfMasterSvc_buscarClavePrimaria_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMasterOfMasterSvc/buscarClavePrimariaResponse" message="tns:IMasterOfMasterSvc_buscarClavePrimaria_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMasterOfMasterSvc" type="tns:IMasterOfMasterSvc">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InsertarMaestroDetalle">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/InsertarMaestroDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarMaestroDetalle">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/ActualizarMaestroDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarMaestroDetalle">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/ConsultarMaestroDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarMaestroCabecera">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/InsertarMaestroCabecera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarMaestroCabecera">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/ActualizarMaestroCabecera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarMaestroCabecera">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/ConsultarMaestroCabecera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearTabla">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/CrearTabla" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarMAestrosAvanzados">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/ListarMAestrosAvanzados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarMAvanzado">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/buscarMAvanzado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarClavePrimaria">
+      <soap:operation soapAction="http://tempuri.org/IMasterOfMasterSvc/buscarClavePrimaria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MasterOfMasterSvc">
+    <wsdl:port name="BasicHttpBinding_IMasterOfMasterSvc" binding="tns:BasicHttpBinding_IMasterOfMasterSvc">
+      <soap:address location="http://localhost:3767/MasterOfMasterSvc.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

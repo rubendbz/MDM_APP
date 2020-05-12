@@ -1,0 +1,864 @@
+﻿@{
+    ViewBag.Title = "Maestro Avanzado";
+}
+
+<div class="breadcrumb" id="tituloMA">
+   Configuración / Crear maestro avanzado
+</div>
+
+
+<!--Insertar Maestro-->
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        <span id="">Datos principales</span>
+        <a id="info" style="float:right">
+            <i class="fas fa-info form-inline" style="color:white; border-radius:100%;padding:5px 10px; background-color:#497e79;margin-top:7px; "></i>
+        </a>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row form-group">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="NombreMA">Nombre de la tabla<span style="color:red;">*</span></label> 
+                <input class="form-control" style="max-width:100%; border-color:darkgrey;" id="NombreMA" placeholder="" type="text"  maxlength="25" minlength="4" pattern="^[A-Z][0-9a-zA-Z_]+$"/>
+                <div class="invalid-feedback" style="display:none"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="card-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="row form-group" id="Filar-crear">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <label for="ColumnaMA">Nombre de la columna<span style="color:red;">*</span></label> 
+                <input class="form-control" style="max-width:100%; border:1px medium blue; border-color:darkgrey;" id="ColumnaMA" name="ColumnaMA" type="text"  maxlength="25" minlength="4" pattern="^[a-zA-ZA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ][0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_]+$"/>
+                <div class="invalid-feedback" style="display:none"></div>
+            </div>
+
+            <div class="col-lg-2 col-sm-2 col-xm-2 col-md-2  col-xs-12">
+                <div class="form-group">
+
+                    <label for="TDatoMA">Tipo de dato<span style="color:red;">*</span></label> 
+                    <select name="TDatoMA" class="form-control" style="border-color:darkgrey;" id="TDatoMA" >
+
+                
+                        <option value="varchar">varchar</option>
+                        <option value="varchar(MAX)">varchar(MAX)</option> 
+                        <option value="int">int</option>
+                        <option value="bigint">bigint</option>
+                        <option value="datetime">datetime</option>
+                        <option value="float">float</option>
+                        <option value="decimal">decimal</option>
+                        <option value="bit">bit</option>
+                                
+                        <option value="binary(50)">binary(50)</option>
+                        <option value="char(10)">char(10)</option>
+                        <option value="date">date</option>
+                        <option value="datetime2(7)">datetime2(7)</option>
+                        <option value="datetimeoffset(7)">datetimeoffset(7)</option>
+                        <option value="decimal(18, 0)">decimal(18, 0)</option> 
+                        <option value="hierarchyid">hierarchyid</option>
+     
+                        <option value="nchar(10)">nchar(10)</option>
+                       
+                        <option value="numeric(18, 0)">numeric(18, 0)</option>
+                        <option value="nvarchar(50)">nvarchar(50)</option>
+                        <option value="nvarchar(MAX)">nvarchar(MAX)</option>
+                        
+                        <option value="smalldatetime">smalldatetime</option>
+                        <option value="smallint">smallint</option>
+                               
+                
+                        <option value="sql_variant">sql_variant</option>     
+                        <option value="time(7)">time(7)</option>
+                       
+                        <option value="tinyint">tinyint</option>
+                        <option value="uniqueidentifier">uniqueidentifier</option>
+                        <option value="varbinary(50)">varbinary(50)</option>
+                        <option value="varbinary(MAX)">varbinary(MAX)</option>
+                 </select>
+
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-sm-1 col-xm-1 col-md-1  col-xs-12" id="Tamano">
+                <div class="form-group">
+
+                    <label for="Tam">Tamaño<span style="color:red;">*</span></label> 
+                    <input class="form-control" style="max-width:120%; border-color:black; " id="Tam" name="Tam" type="text"  min="1" max="8000" maxlength="4" minlength="1"  />
+
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="form-group">
+                    <label style="text-align: center;">Permite nulo</label>
+                    <div class="custom-control custom-checkbox" style="padding-left:3rem;">
+                        @Html.CheckBox("PNULL", new { @id = "PNULL" })
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <label for="Estado" style="text-align: center;">Clave primaria</label>
+                <div class=" custom-control custom-checkbox" style="padding-left:3rem;">
+                    @Html.CheckBox("PK", new { @id = "PK" })
+
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                <br />
+                <button type="button" id="bt_add" class="fa fa-plus btn btn-success"></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="htmltabla" class="col-lg-12 col-sm-12 col-md-12 col-xs-12 table-responsive">
+        <table id="contenido" class="table">
+
+
+            <tbody></tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
+<div class="row form-group">
+
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <label></label>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#ModalConfirmacionLimpiar" disabled id="btnLimpiar">Limpiar</button>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModalConfirmacion" disabled id="btnConfirmation">Guardar</button>
+    </div>
+
+   
+
+</div>
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 row">
+    <p>Campos requeridos</p><label style="color:red;">*</label>
+  <p id="ContadorMA" style="display:none;"></p>
+    <p id="ClavePrimaria" style="display:none;"></p>
+</div>
+<!--Modal de confirmacion!-->
+<div class="modal fade" id="ModalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Desea confirmar la operación?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnEnviarData" type="button" style="width:25%" class="btn btn-success" data-toggle="modal" data-target="#ModalMensaje" data-dismiss="modal">Confirmar</button>
+                <button type="button" class="btn btn-warning" style="width:25%" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal de confirmacion del Botar Limpiar!-->
+<div class="modal fade" id="ModalConfirmacionLimpiar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea limpiar los campos?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnConfiLimpiar" onclick="javascript: LimpiarAvanzado();"  type="button" style="width:25%" class="btn btn-success" data-toggle="modal" data-target="#ModalConfirmacionLimpiar" data-dismiss="modal">Confirmar</button>
+                <button type="button" class="btn btn-warning" style="width:25%" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal de Mensaje-->
+<div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Titulo">Alerta!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="pRespuestaServidor"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnCerrar" class="btn btn-warning" data-dismiss="modal" style="width:25%">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section script
+            {
+    <script>
+        /*Variables globales*/
+        var cont = 0;
+        var k = 0;
+        var i = 0;
+        var activo = "";
+        var activopk = "";
+        var cadenatotal = "";
+        var onlyone = 0;
+        var c = 0;
+        var Accion = "insertar";
+        var MaestroModificar = null;
+   
+        $("#info").click(function () {
+            $("#Titulo").html("Por favor tome en cuenta las siguientes reglas para ingresar los datos. ");
+            $("#pRespuestaServidor").html("Solo se admiten caracteres de [A-Z] o [0-9].<br> El nombre de la Tabla debe tener una longitud mínima de tres (3) caracteres.  <br> El nombre de la tabla debe comenzar con mayuscula. <br> El nombre de la columna debe tener una longitud mínima de dos (2) caracteres.  <br>Los nombres deben tener una longitud máxima de veinticinco (25) caracteres.<br> Los nombres no pueden empezar con un carácter numérico (0-9).<br>Los nombres deben contener al menos un (1) carácter alfabético.<br>Los nombres no deben contener espacios en blancos.");
+            $("#ModalMensaje").modal('show');
+        });
+            $(document).ready(function () {
+                $("#bt_add").click(function () {
+                    if (ValidarCampos()) {
+
+                        $("#btnLimpiar").prop("disabled", false);
+                        $("#btnConfirmation").prop("disabled", false);
+
+
+                        agregarFila();
+                        limpiarCampos();
+                    } 
+                });
+            });
+
+            $('#TDatoMA').on("change keyup paste", function () {
+             
+                if ($("option:selected", this).text() == "varchar") {
+                    $("#Tamano").css("visibility", "visible");
+                    //$("#Tamano").show();
+                } else {
+                    $("#Tamano").css("visibility", "hidden");
+                    //$("#Tamano").hide();
+                }
+            });
+
+
+
+
+            function agregarFila() {
+                //Validaciones al Agregar un nuevo campo
+                MaestroModificar = null;
+        
+
+                Columna_MA = $("#ColumnaMA").val();
+                TDato_MA = $("#TDatoMA option:selected").text();
+                Tamx = $("#Tam").val();
+
+                P_NULL = $("#PNULL").prop('checked');
+
+                P_K = $("#PK").prop('checked');
+               
+
+
+                if (P_NULL == true) {
+                    activo = "checked";
+                }
+                else {
+                    activo = "";
+                }
+
+                if (P_K == true) {
+                    activopk = "checked";
+                    onlyone += 1;
+                }
+                else {
+                    activopk = "";
+                }
+
+
+          
+
+                   //cont = $("#contenido tr").length  ;
+
+
+                var fila = '<tr class="selected"  id="fila' + cont + '">';
+                fila += '<td>';
+                fila += '<div class="row form-group" id="Filar-crear">';
+                fila += '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">';
+                fila += '<label>Nombre de la columna</label>';
+                fila += '<input class="form-control" style="max-width:100%; border:1px medium blue; border-color:darkgrey;" type="text" id="NCMA' + cont + '" value="' + Columna_MA + '" disabled >';
+                fila += '</div>';
+                fila += '<div class="col-lg-2 col-sm-2 col-xm-2 col-md-2  col-xs-12">';
+                fila += '<div class="form-group">';
+                fila += '<label>Tipo de dato</label>';
+                fila += '<input  id="TDMA' + cont + '" class="form-control" type="text"  value="' + TDato_MA + '" disabled >';
+                fila += '</div>';
+                fila += '</div>';
+                fila += '<div class="col-lg-1 col-sm-1 col-xm-1 col-md-1  col-xs-12" id="Tamano">';
+                fila += '<div class="form-group">';
+                if (TDato_MA == "varchar") {
+                    fila += '<label>Tamaño</label>';
+                    fila += '<input class="form-control" style="max-width:120%;" disabled id="Tam' + cont + '" value="' + Tamx + '"  name="Tam" type="text"/>';
+                }               
+                fila +='</div>';
+                fila += '</div>';
+                fila += '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">';
+                fila += '<div class="form-group">';
+                fila += '<label style="text-align: center;">Permite nulo</label>';
+                fila += '<div class=" custom-control custom-checkbox" style="padding-left:3rem;">';
+                fila += '<input id="PNMA' + cont + '" type="checkbox"  value="' + P_NULL + '" " ' + activo + ' " disabled >';
+                fila += '</div>';
+                fila += '</div>';
+                fila += '</div>';
+                fila += '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">';
+                fila +='<label for="Estado" style="text-align: center;">Clave primaria</label>';
+                fila += '<div class=" custom-control custom-checkbox" style="padding-left:3rem;">';
+                fila += '<input id="PKMA' + cont + '" type="checkbox" name="PK" value="' + P_K + '"  " ' + activopk + ' " disabled  >';
+                fila += '</div>';
+                fila += '</div>';
+                fila += '<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">';
+                fila += '<br />';
+                fila += '<button type="button" class="fa fa-minus btn btn-warning" onclick="eliminar(' + cont + ');"></button>';
+                fila += '<button type="button" class="fas fa-edit btn btn-success" style="margin-top:10px" onclick="cargarFila(' + cont + ');"></button>';
+                fila += '</div>';
+                fila += "</div>";
+                fila += '</td>';
+                fila += '</tr>';
+                //<td> <label>Nombre de la columna*</label> <br /><input class="form-control" type="text" id="NCMA' + cont + '" value="' + Columna_MA + '" disabled ></td><td><label>Tipo de dato*</label> <br /><input  id="TDMA' + cont + '" class="form-control" type="text"  value="' + TDato_MA + '" disabled ></td><td><label>Permite nulo</label> <br /><div class="custom-control custom-checkbox" style="padding-left:3rem;"> <input id="PNMA' + cont + '" type="checkbox"  value="' + P_NULL + '" " ' + activo + ' " disabled > </div> </td>   <td><label>Clave primaria</label> <br /><div class=" custom-control custom-checkbox" style="padding-left:3rem;"><input id="PKMA' + cont + '" type="checkbox" name="PK" value="' + P_K + '"  " ' + activopk + ' " disabled  ></div></td><td><br /><button type="button" class="fa fa-minus btn btn-warning" onclick="eliminar(' + cont + ');"></button></td> </div>  </tr>';
+                $('#contenido tbody' ).append(fila);
+                $('#ColumnaMA').text = "";
+                cont = cont + 1;
+                MaestroModificar = null;
+                if (cont == 1) {
+                    $('#NombreMA').prop('disabled', true);
+                }
+            }
+
+
+            //  Autor: Ruben Ballesteros
+            // fecha: 20-09-2018
+            //Descripcion: Funcion que elimina los datos de  los campos una vez que se ingresan  en la tabla
+
+            function limpiarCampos() {
+                $('#TDatoMA option[value=varchar]').prop("selected",true);
+                $('#PNULL').prop('checked', false);
+                $('#PK').prop('checked', false);
+                $('#Tam').val("");
+                $("#Tamano").css("visibility", "visible");
+                $('#ColumnaMA').val("").focus();
+            }
+            //Autor: Ruben Ballesteros
+            //fecha: 20-09-2018
+            //Descripcion: Funcion que valida los campos para que se ingresen segun el formato predeterminado y no se repitan las colunmas ni se agreguen vacias
+            // Parametros: La funcion Devuelve un boolean,# validacion :  para saber si se cumplen o no las validaciones, en caso de no cumplirlas emite un mensaje y si las cumple se agregan a la tabla.
+
+
+            function ValidarCampos() {
+                var nombreColumna = document.getElementById("ColumnaMA").value;
+                var nombreTabla = document.getElementById("NombreMA").value;
+                var tipoDato = document.getElementById("TDatoMA").value;
+                var expr1 = new RegExp('^[A-Z][0-9a-zA-Z_]+$');
+                var expr = new RegExp('^[a-zA-ZA][0-9a-zA-Z_]+$');
+                var expr2 = new RegExp('^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-7][0-9][0-9][0-9]|8000)*$');
+                var P_K = $("#PK").prop('checked');
+                var P_N = $("#PNULL").prop('checked');
+                var TDato_MA = $("#TDatoMA option:selected").text();
+                var tam = document.getElementById("Tam").value;
+                var PRSQL = ["@@IDENTITY",
+                "ENCRYPTION",
+                "ORDER",
+                "ADD",
+                "END",
+                "OUTER",
+                "ALL",
+                "ERRLVL",
+                "OVER",
+                "ALTER",
+                "ESCAPE",
+                "PERCENT",
+                "AND",
+                "EXCEPT",
+                "PLAN",
+                "ANY",
+                "EXEC",
+                "PRECISION",
+                "AS",
+                "EXECUTE",
+                "PRIMARY",
+                "ASC",
+                "EXISTS",
+                "PRINT",
+                "AUTHORIZATION",
+                "EXIT",
+                "PROC",
+                "AVG",
+                "EXPRESSION",
+                "PROCEDURE",
+                "BACKUP",
+                "FETCH",
+                "PUBLIC",
+                "BEGIN",
+                "FILE",
+                "RAISERROR",
+                "BETWEEN",
+                "FILLFACTOR",
+                "READ",
+                "BREAK",
+                "FOR",
+                "READTEXT",
+                "BROWSE",
+                "FOREIGN",
+                "RECONFIGURE",
+                "BULK",
+                "FREETEXT",
+                "REFERENCES",
+                "BY",
+                "FREETEXTTABLE",
+                "REPLICATION",
+                "CASCADE",
+                "FROM",
+                "RESTORE",
+                "CASE",
+                "FULL",
+                "RESTRICT",
+                "CHECK",
+                "FUNCTION",
+                "RETURN",
+                "CHECKPOINT",
+                "GOTO",
+                "REVOKE",
+                "CLOSE",
+                "GRANT",
+                "RIGHT",
+                "CLUSTERED",
+                "GROUP",
+                "ROLLBACK",
+                "COALESCE",
+                "HAVING",
+                "ROWCOUNT",
+                "COLLATE",
+                "HOLDLOCK",
+                "ROWGUIDCOL",
+                "COLUMN",
+                "IDENTITY",
+                "RULE",
+                "COMMIT",
+                "IDENTITY_INSERT",
+                "SAVE",
+                "COMPUTE",
+                "IDENTITYCOL",
+                "SCHEMA",
+                "CONSTRAINT",
+                "IF",
+                "SELECT",
+                "CONTAINS",
+                "IN",
+                "SESSION_USER",
+                "CONTAINSTABLE",
+                "INDEX",
+                "SET",
+                "CONTINUE",
+                "INNER",
+                "SETUSER",
+                "CONVERT",
+                "INSERT",
+                "SHUTDOWN",
+                "COUNT",
+                "INTERSECT",
+                "SOME",
+                "CREATE",
+                "INTO",
+                "STATISTICS",
+                "CROSS",
+                "IS",
+                "SUM",
+                "CURRENT",
+                "JOIN",
+                "SYSTEM_USER","CURRENT_DATE","KEY","TABLE","CURRENT_TIME","KILL","TEXTSIZE","CURRENT_TIMESTAMP","LEFT","THEN","CURRENT_USER","LIKE","TO","CURSOR","LINENO","TOP","DATABASE","LOAD","TRAN","DATABASEPASSWORD","MAX","TRANSACTION","DATEADD","MIN","TRIGGER","DATEDIFF","NATIONAL","TRUNCATE","DATENAME","NOCHECK","TSEQUAL","DATEPART","NONCLUSTERED","UNION","DBCC","NOT","UNIQUE","DEALLOCATE","NULL","UPDATE","DECLARE","NULLIF","UPDATETEXT","DEFAULT","OF","USE","DELETE","OFF","USER","DENY","OFFSETS","VALUES","DESC","ON","VARYING","DISK","OPEN","VIEW","DISTINCT","OPENDATASOURCE","WAITFOR","DISTRIBUTED","OPENQUERY","WHEN","DOUBLE","OPENROWSET","WHERE","DROP","OPENXML","WHILE","DUMP","OPTION","WITH","ELSE", "OR","NEW","ID"];
+
+                validacion = true;
+                // VALIDAR CLAVE PRIMARIA RECORRIENDO CADA UNA DE ELLAS
+                var estaPK = false;
+                for (k = 0 ; k < cont; k++) {
+
+                    ClavePrimaria = $("#PKMA" + k).val();
+                    if (ClavePrimaria == "true") {
+                        onlyone = 1;
+                        estaPK = true;
+                    }
+                }
+                onlyone = !estaPK ? 0 : onlyone;
+
+
+                for (i = 0 ; i < cont; i++) {
+                    if ($("#NCMA" + i).length > 0) { 
+                        NombreColumna = $("#NCMA" + i).val();
+                        if (nombreColumna.toLowerCase() == NombreColumna.toLowerCase()) {
+                            $("#Titulo").html("Alerta");
+                            $("#pRespuestaServidor").html("Ya este nombre de la columna existe");
+                            $("#ModalMensaje").modal('show');
+                            validacion = false;
+                        }
+                    }
+                }
+
+                //Comienzo de las Validaciones
+         
+                if ($.inArray(nombreColumna.toLocaleUpperCase(), PRSQL) >= 0) {
+                    $("#Titulo").html("Alerta ");
+                    $("#pRespuestaServidor").html("Descripción no valida.");
+                    $("#ModalMensaje").modal('show');
+                    validacion = false;
+                }           
+
+                if ((nombreTabla == "")) {  //COMPRUEBA CAMPOS VACIOS
+                    $("#Titulo").html("Alerta");
+                    $("#pRespuestaServidor").html("Por favor ingrese el nombre de la Tabla");
+                    $("#ModalMensaje").modal('show');
+                    validacion = false;
+                }
+                else {
+
+
+
+                    if (document.getElementById("NombreMA").value.length < 3) {
+                        $("#Titulo").html("Alerta");
+                        $("#pRespuestaServidor").html("El nombre de la Tabla debe tener más de 3 caracteres.");
+                        $("#ModalMensaje").modal('show');
+                        validacion = false;
+                    }
+                    else {
+                        if (!expr1.test(nombreTabla)) {//COMPRUEBA Columna
+                            $("#Titulo").html("Alerta");
+                            $("#pRespuestaServidor").html("El nombre de la Tabla" + "  " + nombreTabla + "  no es válido.");
+                            $("#ModalMensaje").modal('show');
+                            return validacion = false;
+                        }
+                        else {
+
+                            if ((nombreColumna == "") || (tipoDato == "")) {  //COMPRUEBA CAMPOS VACIOS
+                                $("#Titulo").html("Alerta");
+                                $("#pRespuestaServidor").html("Los campos no pueden quedar vacios.");
+                                $("#ModalMensaje").modal('show');
+                                validacion = false;
+                            }
+                            else {
+                                if (document.getElementById("ColumnaMA").value.length < 2) {
+                                    $("#Titulo").html("Alerta");
+                                    $("#pRespuestaServidor").html("El nombre de la columna  debe tener más de dos caracteres.");
+                                    $("#ModalMensaje").modal('show');
+                                    validacion = false;
+                                }
+                                else {
+                                    if (!expr.test(nombreColumna)) {                                                            //COMPRUEBA Columna.
+                            
+                                        $("#Titulo").html("Alerta");
+                                        $("#pRespuestaServidor").html("El nombre de la columna " + nombreColumna + " no es válido");
+                                        $("#ModalMensaje").modal('show');
+                                        return validacion = false;
+                                    }
+                                    else {
+
+                                        if (P_K == true && onlyone == 1) {
+                                            $("#Titulo").html("Alerta");
+                                            $("#pRespuestaServidor").html("Ya existe una clave primaria");
+                                            $("#ModalMensaje").modal('show');
+                                            validacion = false;
+                                        }
+                                        else {
+                                            if (P_K == true && TDato_MA != "bigint" && TDato_MA != "int") {
+                                                $("#Titulo").html("Alerta");
+                                                $("#pRespuestaServidor").html("La clave primaria debe ser de tipo 'bigint'o 'int'");
+                                                $("#ModalMensaje").modal('show');
+
+                                                return validacion = false;
+                                            }
+                                            if (P_K == true && P_N == true) {
+                                                $("#Titulo").html("Alerta");
+                                                $("#pRespuestaServidor").html("La clave primaria no puede ser nula");
+                                                $("#ModalMensaje").modal('show');
+                                                return validacion = false;
+                                            }
+                                            if (tam == "" && TDato_MA == "varchar") {
+                                                $("#Titulo").html("Alerta");
+                                                $("#pRespuestaServidor").html("El campo 'Tamaño' es requerido con el tipo de dato 'varchar'.");
+                                                $("#ModalMensaje").modal('show');
+
+                                                return validacion = false;
+                                            }
+                                        }
+                                    }
+                                    if (!expr2.test(tam)) {
+                                        $("#Titulo").html("Alerta");
+                                        $("#pRespuestaServidor").html("Dato inválido en el campo 'Tamaño'.");
+                                        $("#ModalMensaje").modal('show');
+                                        return validacion = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return validacion;
+            }
+
+
+
+
+            function eliminar(index) {
+
+                $("#btnLimpiar").prop("disabled", false);
+                $("#btnConfirmation").prop("disabled", false);
+                $("#fila" + index).remove();
+            }
+            
+            function cargarFila(index) {
+                if (MaestroModificar != null) {
+                    var activo = MaestroModificar.esNull ? "checked" : "";
+                    var activopk = MaestroModificar.esPk ? "checked" : "";
+                    var fila = '<tr class="selected"  id="fila' + cont + '">';
+                    fila += '<td>';
+                    fila += '<div class="row form-group" id="Filar-crear">';
+                    fila += '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">';
+                    fila += '<label>Nombre de la columna</label>';
+                    fila += '<input class="form-control" style="max-width:100%; border:1px medium blue; border-color:darkgrey;" type="text" id="NCMA' + cont + '" value="' + MaestroModificar.nomCampo + '" disabled >';
+                    fila += '</div>';
+                    fila += '<div class="col-lg-2 col-sm-2 col-xm-2 col-md-2  col-xs-12">';
+                    fila += '<div class="form-group">';
+                    fila += '<label>Tipo de dato</label>';
+                    fila += '<input  id="TDMA' + cont + '" class="form-control" type="text"  value="' + MaestroModificar.tipoDato + '" disabled >';
+                    fila += '</div>';
+                    fila += '</div>';
+                    fila += '<div class="col-lg-1 col-sm-1 col-xm-1 col-md-1  col-xs-12" id="Tamano">';
+                    fila += '<div class="form-group">';
+                    if ( MaestroModificar.tipoDato == "varchar") {
+                        fila += '<label>Tamaño</label>';
+                        fila += '<input class="form-control" style="max-width:120%;" disabled id="Tam' + cont + '" value="' + MaestroModificar.tam + '"  name="Tam" type="text"/>';
+                    }
+                    fila += '</div>';
+                    fila += '</div>';
+                    fila += '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">';
+                    fila += '<div class="form-group">';
+                    fila += '<label style="text-align: center;">Permite nulo</label>';
+                    fila += '<div class=" custom-control custom-checkbox" style="padding-left:3rem;">';
+                    fila += '<input id="PNMA' + cont + '" type="checkbox"  value="' + MaestroModificar.esNull + '" " ' + activo + ' " disabled >';
+                    fila += '</div>';
+                    fila += '</div>';
+                    fila += '</div>';
+                    fila += '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">';
+                    fila += '<label for="Estado" style="text-align: center;">Clave primaria</label>';
+                    fila += '<div class=" custom-control custom-checkbox" style="padding-left:3rem;">';
+                    fila += '<input id="PKMA' + cont + '" type="checkbox" name="PK" value="' + MaestroModificar.esPk + '"  " ' + activopk + ' " disabled  >';
+                    fila += '</div>';
+                    fila += '</div>';
+                    fila += '<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">';
+                    fila += '<br />';
+                    fila += '<button type="button" class="fa fa-minus btn btn-warning" onclick="eliminar(' + cont + ');"></button>';
+                    fila += '<button type="button" class="fas fa-edit btn btn-success" style="margin-top:10px" onclick="cargarFila(' + cont + ');"></button>';
+                    fila += '</div>';
+                    fila += "</div>";
+                    fila += '</td>';
+                    fila += '</tr>';
+                    $('#contenido tbody').append(fila);
+                    cont++;
+                }
+                MaestroModificar = {
+                    nomCampo : $("#NCMA" + index).val(),
+                    tipoDato : $("#TDMA" + index).val(),
+                    tam : $("#Tam" + index).val(),
+                    esNull: $("#PNMA" + index).prop("checked"),
+                    esPk: $("#PKMA" + index).prop("checked"),
+                };
+                $("#ColumnaMA").val( $("#NCMA" + index).val() );
+                $("#TDatoMA option[value="+ $("#TDMA" + index).val().replace(/(?=[(), ])/g, '\\') +"]").prop("selected",true);
+                $("#Tam").val($("#Tam" + index).val());
+                if ( $("#TDMA" + index).val() != "varchar" ) {
+                    $("#Tamano").css("visibility", "hidden");
+                }
+                else {
+                    $("#Tamano").css("visibility", "visible");
+                }
+                $("#PNULL").prop("checked", $("#PNMA" + index).prop("checked"));
+                $("#PK").prop("checked", $("#PKMA" + index).prop("checked"));
+                eliminar(index);
+                $('html,body').animate({
+                    scrollTop: $("#page-top").offset().top
+                }, 1000);
+            }
+
+
+            $(document).ready(function () {
+                $("").click(function () {
+
+                });
+            });
+
+            function obtenercontenido(onlyOne) {
+                NombreTabla = $("#NombreMA").val();
+                cadenatotal = "";
+    
+                onlyOne = 0;
+                c = 0;
+                var cadena = "";
+         
+                
+                for (k = 0 ; k < cont ; k++) {
+                    if ( $("#fila"+k).length > 0 ){
+
+                        NombreColumna = $("#NCMA" + k).val();
+                        TipoDato = $("#TDMA" + k).val();
+                        PermiteNulo = $("#PNMA" + k).prop('checked');
+                        ClavePrimaria = $("#PKMA" + k).prop('checked');
+
+                        if (TipoDato == "varchar") {
+                            Tam = $("#Tam" + k).val();
+                            TipoDato = "varchar(" + Tam + ")";
+                        }
+
+                        cadena = NombreColumna + " " + TipoDato;
+                      
+                        if ( PermiteNulo ) {
+                        } else {
+                            cadena = cadena + " NOT NULL"
+                        }
+                        if ( ClavePrimaria ) {
+                            if (c == 0) {
+                                cadena = cadena + " PRIMARY KEY IDENTITY(1,1)";
+                                c++;
+                                onlyOne = 1;
+                            }
+                        }
+              
+                        cadenatotal = cadenatotal == "" ? cadena : cadenatotal + ", " + cadena;
+                    }
+                }
+     
+                return onlyOne;
+            }
+            function LimpiarAvanzado() {
+                cont = 0;
+                k = 0;
+                i = 0;
+                activo = "";
+                activopk = "";
+                cadenatotal = "";
+                onlyone = 0;
+                limpiarCampos();
+                $("#contenido tbody").empty();
+                $("#NombreMA").val("");
+                $("#NombreMA").prop('disabled', false);
+                c = 0;
+                $("#Tam").val("");
+                window.location.reload
+            }
+
+            $("#btnEnviarData").click(function () {
+
+            
+
+                var r;
+                r = obtenercontenido(onlyone);
+   
+
+                //Enviando.. 
+                if( $("#NombreMA").val() == "" ){
+                    $("#Titulo").html("Alerta");
+                    $("#pRespuestaServidor").html("El nombre de la tabla no puede estar vacío");
+                    $("#ModalMensaje").modal('show');
+                    return 0;
+                }
+                if ( $("#contenido tbody tr").length < 2 ) {
+                    $("#Titulo").html("Alerta");
+                    $("#pRespuestaServidor").html("Se deben agregar mínimo 2 columnas a la tabla");
+                    $("#ModalMensaje").modal('show');
+                    return 0;
+                }
+
+                $("#Titulo").text("");
+                $("#pRespuestaServidor").empty();
+                $("#pRespuestaServidor").append('<div class="d-flex justify-content-center"><i class="fas fa-sync-alt fa-3x"></i></div>');
+       
+
+                if(r == 1){
+                    try {
+                        $.ajax({
+                            type: "POST",
+                            data: {
+                                // Variables a Enviar
+                                pAccion : Accion,
+                                pNombreTabla : NombreTabla,
+                                pAtributo : cadenatotal
+                            },
+
+                            //Respuesta de Enviado Exitoso
+                            url: "@Url.Action("NuevoMaestroAvanzado", "MA")",
+
+                            success: function (pRespuesta) {
+
+                                $("#Titulo").text("Alerta");
+
+                                $("#pRespuestaServidor").text("Verifique los datos ingresados");
+
+                                if (pRespuesta == "Operación exitosa") {
+                                    LimpiarAvanzado();
+                                    $("#Titulo").text("Excelente");
+                    
+                                    $("#pRespuestaServidor").text(pRespuesta);
+                                }
+
+                                if (pRespuesta == "Modificación exitosa") {
+                                    $("#Titulo").text("Excelente");
+                                    $("#pRespuestaServidor").text(pRespuesta);
+                                }
+
+                           
+                                if (pRespuesta == "Ya existe un maestro avanzado con este nombre") {
+                                    $("#NombreMA").prop("disabled", false);
+                                    $("#pRespuestaServidor").text(pRespuesta);
+                                }
+                                if (pRespuesta == "") {
+                                    pRespuesta = "Error al crear la tabla, revise la estructura";
+                                    $("#pRespuestaServidor").text(pRespuesta);
+                                }
+                            
+
+                                LLenarMenuAvanzado();
+                            }
+                        }).done(function () {
+                            $("#ModalMensaje").modal('show');
+                        });
+                    }
+                    catch (err) {
+                        console.log(err.message);
+                    }
+                }
+                else {
+                    $("#Titulo").html("Alerta");
+                    $("#pRespuestaServidor").html("Debe ingresar una clave primaria");
+                    $("#ModalMensaje").modal('show');
+                }
+            });
+
+    </script>
+}

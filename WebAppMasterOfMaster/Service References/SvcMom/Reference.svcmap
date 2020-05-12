@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e0c3cfcb-574d-47f7-b287-4a65101c25b4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:3767/MasterOfMasterSvc.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MasterOfMasterSvc.wsdl" MetadataType="Wsdl" ID="b80b3b9d-b88b-4281-a99f-a8a4bb4da992" SourceId="1" SourceUrl="http://localhost:3767/MasterOfMasterSvc.svc?wsdl" />
+    <MetadataFile FileName="MasterOfMasterSvc.xsd" MetadataType="Schema" ID="2fda2e20-fd76-4ef1-98fd-ea8ab4ff4698" SourceId="1" SourceUrl="http://localhost:3767/MasterOfMasterSvc.svc?xsd=xsd1" />
+    <MetadataFile FileName="MasterOfMasterSvc1.xsd" MetadataType="Schema" ID="5b6f457d-37b8-44c8-a168-575c8ce0d73b" SourceId="1" SourceUrl="http://localhost:3767/MasterOfMasterSvc.svc?xsd=xsd2" />
+    <MetadataFile FileName="MasterOfMasterSvc2.xsd" MetadataType="Schema" ID="e9b0bb13-184b-4d9d-9c31-13fceabba43b" SourceId="1" SourceUrl="http://localhost:3767/MasterOfMasterSvc.svc?xsd=xsd0" />
+    <MetadataFile FileName="MasterOfMasterSvc.disco" MetadataType="Disco" ID="b4d568ec-5e8e-4a79-a36c-729082e7feb5" SourceId="1" SourceUrl="http://localhost:3767/MasterOfMasterSvc.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
